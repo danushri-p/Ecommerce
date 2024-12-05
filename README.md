@@ -1,4 +1,4 @@
-ECommerce Application
+Ecommerce Application
 
 Milestone 1: Project Overview
 
