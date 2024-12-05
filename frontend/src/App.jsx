@@ -1,25 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-
+import LogInPage from "./components/aunthenticate/LogIn"
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <LogInPage/>
+      {/* <h1>Hello</h1> */}
+      <div className="border border-black">Hello world</div>
+    </>
+  )
 }
-
-export default App;
+export default App
