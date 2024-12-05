@@ -1,6 +1,6 @@
-Ecommerce Application
+##Ecommerce Application
 
-Milestone 1: Project Overview
+#Milestone 1: Project Overview
 
 This project is a simple Ecommerce web application that includes core functionalities such as user authentication, product display, order management, and a payment gateway.
 
@@ -12,7 +12,7 @@ This project is a simple Ecommerce web application that includes core functional
 
 4. Payment Gateway:This is used to process the payment for the products ordered.
 
-Milestone 2:
+#Milestone 2:
 
 1.Setup Frontend:
 
