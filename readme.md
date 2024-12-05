@@ -30,3 +30,29 @@ cors (npm i cors):cross-origin requests are necessary for frontend-backend commu
 nodemon (npm i nodemon):automatically reboots the server on changing files, which makes further development more efficient.
 
 After all these configurations, this project is ready for complete full-stack development.
+
+
+## milestone-3:
+1. Setting up the Node Server: 
+    You start by setting up a app.js server, usually with frameworks like Express
+
+2. Connecting Your Application to MongoDB: 
+    MongoDB is a NoSQL database where you can store data in collections.
+
+3. Establish Connection Between Database and Server: 
+    created a file name database.js and connected the database and server
+
+4.Error Handling:
+     Error handling ensures that if something goes wrong, the system can report where the problem occurred.
+
+## MileStone-4:
+1. User Model for the Database:
+    a. The User Model represents the structure and schema for storing user data in the database. 
+    b. It defines what data should be stored, such as the user's name, email, password, and any other necessary information
+
+2.Setting up Controllers to Handle User-Related Data:
+    Controllers are responsible for handling the logic of how data is processed and returned in response to client requests.
+
+3.Enabling File Uploads Using Multer:
+    Multer is a middleware used for handling file uploads in a web application.
+
