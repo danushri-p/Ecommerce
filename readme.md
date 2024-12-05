@@ -30,4 +30,3 @@ cors (npm i cors):cross-origin requests are necessary for frontend-backend commu
 nodemon (npm i nodemon):automatically reboots the server on changing files, which makes further development more efficient.
 
 After all these configurations, this project is ready for complete full-stack development.
-Happy coding!!
