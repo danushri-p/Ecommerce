@@ -31,6 +31,7 @@ nodemon (npm i nodemon):automatically reboots the server on changing files, whic
 
 After all these configurations, this project is ready for complete full-stack development.
 
+
 ## milestone-3:
 1. Setting up the Node Server: 
     You start by setting up a app.js server, usually with frameworks like Express

@@ -10,4 +10,3 @@ const server = app.listen(PORT,async()=>{
     connectDatabase();
     console.log("The server is running on 8080 URL: http//localhost:8080")
 
-})
