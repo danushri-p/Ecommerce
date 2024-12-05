@@ -30,4 +30,14 @@ cors (npm i cors):cross-origin requests are necessary for frontend-backend commu
 nodemon (npm i nodemon):automatically reboots the server on changing files, which makes further development more efficient.
 
 After all these configurations, this project is ready for complete full-stack development.
-Happy coding!!
+
+## milestone-3:
+1. Setting up the Node Server: You start by setting up a app.js server, usually with frameworks like Express
+
+2. Connecting Your Application to MongoDB: MongoDB is a NoSQL database where you can store data in collections.
+
+3. Establish Connection Between Database and Server: 
+created a file name database.js and connected the database and server
+
+4.Error Handling: Error handling ensures that if something goes wrong, the system can report where the problem occurred.
+
