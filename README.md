@@ -48,5 +48,15 @@ MileStone-4:
 
 4. Error Handling: Error handling ensures that if something goes wrong, the system can report where the problem occurred.
 
+Milestone 5: Creating the Signup page
+
+  1. Developed the signup page for the e-commerce application.
+   
+  2. The page includes a form that allows users to input their name, email, and password.
+   
+  3. The form validates the inputs and submits the data to the backend for user registration.
+   
+  4. This feature is crucial for enabling new users to create accounts and start shopping on the platform.
+
 
 Happy coding!!
