@@ -9,9 +9,6 @@ if(process.env.NODE_ENV!=='PRODUCTION'){
     });
 }
 
-
-
-
 const app=express()
 
 app.get('/',(req,res)=>{
@@ -21,12 +18,3 @@ app.get('/',(req,res)=>{
 app.use('/user', userRouter);
 
 module.exports=app;
-const express= require('express');
-const app=express()
-const userRouter=
-app.get('/',(req,res)=>{
-    return res.send("Welcome to backend")
-})
-app.use
-module.exports=app;
-

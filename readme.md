@@ -56,3 +56,15 @@ After all these configurations, this project is ready for complete full-stack de
 3.Enabling File Uploads Using Multer:
     Multer is a middleware used for handling file uploads in a web application.
 
+## Milestone 5:
+
+Creating the Signup page
+
+1. Developed the signup page for the e-commerce application.
+
+2. The page includes a form that allows users to input their name, email, and password.
+
+3. The form validates the inputs and submits the data to the backend for user registration.
+
+4. This feature is crucial for enabling new users to create accounts and start shopping on the platform.
+
