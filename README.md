@@ -48,7 +48,9 @@ MileStone-4:
 
 4. Error Handling: Error handling ensures that if something goes wrong, the system can report where the problem occurred.
 
-Milestone 5: Creating the Signup page
+Milestone 5: 
+
+Creating the Signup page
 
   1. Developed the signup page for the e-commerce application.
    
