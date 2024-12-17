@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import ValidationFormObject from '../../validation'; 
+import ValidationFormObject from '../../validation'; // Assuming you have a validation object
 
 import { Link } from 'react-router-dom';
+
 function SignupForm() {
   const [data, setData] = useState({
     name: '',
@@ -10,31 +11,34 @@ function SignupForm() {
     file: '',
   });
   const [error, setError] = useState('');
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({
       ...data,
       [name]: value,
     });
-    
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent page reload on form submission
+
     const NameV = ValidationFormObject.validteName(data.name);
     const EmailV = ValidationFormObject.validteEmail(data.email);
     const PassV = ValidationFormObject.validtePass(data.password);
 
-    if (typeof NameV == 'string' && NameV.length > 1) {
+    if (typeof NameV === 'string' && NameV.length > 1) {
       return setError(NameV);
     }
-    if (typeof EmailV == 'string' && EmailV.length > 2) {
+    if (typeof EmailV === 'string' && EmailV.length > 2) {
       return setError(EmailV);
     }
-    if (typeof PassV == 'string' && PassV.length > 2) {
+    if (typeof PassV === 'string' && PassV.length > 2) {
       return setError(PassV);
     }
-    // axios request
+
+    // After validation success, you can proceed with the axios request (or any other submission logic)
+    // axios.post(...);
   };
 
   return (
@@ -43,9 +47,7 @@ function SignupForm() {
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg"
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Signup
-        </h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Signup</h2>
 
         {/* Name Field */}
         <div className="mb-4">
@@ -67,6 +69,7 @@ function SignupForm() {
           />
         </div>
 
+        {/* Email Field */}
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -86,7 +89,7 @@ function SignupForm() {
           />
         </div>
 
-        
+        {/* Password Field */}
         <div className="mb-4">
           <label
             htmlFor="password"
@@ -106,7 +109,7 @@ function SignupForm() {
           />
         </div>
 
-        
+        {/* File Upload Field */}
         <div className="mb-6">
           <label
             htmlFor="file"
@@ -118,14 +121,17 @@ function SignupForm() {
             type="file"
             id="file"
             name="file"
-            accept=".jpg , .jpeg , .png"
+            accept=".jpg, .jpeg, .png"
             onChange={handleChange}
             className="w-full text-gray-700 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
 
-        
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -133,8 +139,12 @@ function SignupForm() {
           Signup
         </button>
 
-        <p className="text-center">
-          Already have an account ? <Link to={'/login'}>LogInPage</Link>
+        {/* Link to Login Page */}
+        <p className="text-center mt-4">
+          Already have an account?{' '}
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Log In
+          </Link>
         </p>
       </form>
     </div>
