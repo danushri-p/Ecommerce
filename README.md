@@ -61,4 +61,17 @@ Creating the Signup page
   4. This feature is crucial for enabling new users to create accounts and start shopping on the platform.
 
 
+Milestone 7:
+
+Signup:
+    1. Users provide their name, email, and password.
+    2. Password is hashed before storing it in the database.
+    3. If the user is already registered, they are asked to log in instead.
+  
+Login:
+    1. Users log in with their email and password.
+    2. If the credentials are correct, a token is generated and sent as a cookie.
+
+
+
 Happy coding!!
