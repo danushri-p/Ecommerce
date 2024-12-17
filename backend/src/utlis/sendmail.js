@@ -1,10 +1,11 @@
-const nodemailer = require('nnodemailer');
+const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-    host: "gmail",
-    auth: {
+  host: 'smtp.gmail.com',
+  auth: {
       user: 'danushri.prakash@gmail.com',
       pass: 'ahgr pwuw rfkv svxw',
-      },
+    },
   });
   
+  module.exports = transporter;
