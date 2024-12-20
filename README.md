@@ -109,6 +109,14 @@ Components
 
   2. Data Submission: Captures input and sends it via an HTTP POST request to a backend server.
 
+##Milestone 10:
+
+   1. Product Schema: Includes attributes such as product name, price, description, category, stock availability, and an image URL for storing product details.
+   
+   2. Data Submission Endpoint: Provides a /add-product API route for saving product information to the MongoDB database.
+
+   3. Image Handling: Integrates Multer and Cloudinary to facilitate seamless product image uploads and storage
+
 
 
 Happy coding!!
