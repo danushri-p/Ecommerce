@@ -1,5 +1,6 @@
 function Card({ 
   title, 
+
   image,
   description,
   discountPrice,
@@ -25,26 +26,48 @@ function Card({
         {/* Title */}
         <h3 className="text-lg font-semibold text-gray-800 mb-2">
           {/* Wireless Noise-Canceling Headphones */}
+
+          {title} 
+
           {title} - {Index + 1}
+
         </h3>
 
         {/* Description */}
         <p className="text-gray-600 text-sm mb-4">
+
+          {/*Premium wireless headphones with active noise cancellation and 30-hour battery life.*/}
+          {description}
+
           Premium wireless headphones with active noise cancellation and 30-hour
           battery life.
+
         </p>
 
         {/* Rating */}
         <div className="flex items-center mb-4">
+
+          <span className="ml-2 text-sm text-gray-600">({rating})</span>
+
           <span className="ml-2 text-sm text-gray-600">(4.5)</span>
+
         </div>
 
         {/* Price Section */}
         <div className="flex items-center justify-between">
           <div>
+
+            <span className="text-xl font-bold text-gray-900">
+              {originalPrice}
+              
+            </span>
+            <span className="ml-2 text-sm text-gray-500 line-through">
+              {discountPrice}
+
             <span className="text-xl font-bold text-gray-900">$199.99</span>
             <span className="ml-2 text-sm text-gray-500 line-through">
               $249.99
+
             </span>
           </div>
           <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors duration-200">

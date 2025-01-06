@@ -38,10 +38,12 @@ Milestone 3:
 2. Connecting Your Application to MongoDB: MongoDB is a NoSQL database where you can store data in collections.
 
 3. Establish Connection Between Database and Server: 
+
 created a file name database.js and connected the database and server
 
 MileStone-4:
 1. User Model for the Database: a. The User Model represents the structure and schema for storing user data in the database. b. It defines what data should be stored, such as the user's name, email, password, and any other necessary information
+
 2. Setting up Controllers to Handle User-Related Data: Controllers are responsible for handling the logic of how data is processed and returned in response to client requests.
 
 3. Enabling File Uploads Using Multer: Multer is a middleware used for handling file uploads in a web application.
@@ -65,18 +67,70 @@ Milestone 7:
 
 Signup:
 
-    1. Users provide their name, email, and password.
+   1. Users provide their name, email, and password.
+
+
+   2. Password is hashed before storing it in the database.
+
+   3. If the user is already registered, they are asked to log in instead.
+
+Login:
+
+   1. Users log in with their email and password.
+
+
     
-    2. Password is hashed before storing it in the database.
+   2. Password is hashed before storing it in the database.
     
-    3. If the user is already registered, they are asked to log in instead.
+   3. If the user is already registered, they are asked to log in instead.
   
 Login:
 
-    1. Users log in with their email and password.
+   1. Users log in with their email and password.
     
-    2. If the credentials are correct, a token is generated and sent as a cookie.
 
+   2. If the credentials are correct, a token is generated and sent as a cookie.
+
+Milestone 8:
+   1. Displays a list of products using the Card component.
+
+   2. Dummy data used for product titles.
+
+   3. Each product is rendered with its title.
+
+Components
+
+   1. Card: Displays individual product titles.
+
+   2. HomePage: Maps over dummy data and renders each Card.
+
+Milestone 9:
+
+   1. Form Creation: Collects fields like product name, price, and description.
+
+   2. Data Submission: Captures input and sends it via an HTTP POST request to a backend server.
+
+Milestone 10:
+
+   1. Product Schema: Includes attributes such as product name, price, description, category, stock availability, and an image URL for storing product details.
+
+   2. Data Submission Endpoint: Provides a /add-product API route for saving product information to the MongoDB database.
+
+   3. Image Handling: Integrates Multer and Cloudinary to facilitate seamless product image uploads and storage
+
+Milestone 11:
+
+   1. writing an endpoint that will fetch data from DB.
+
+   2. Writing an endpoint that will send all products data from DB to frontend
+
+Milestone 12:
+
+   1. Create a backend GET endpoint to send all products associated with a user's email to the frontend.
+
+   2. Fetch the data on the frontend using a function.
+
+   3.Dynamically display the data using a ProductCard component.
 
 
 Happy coding!!
