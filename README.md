@@ -1,6 +1,6 @@
-#Ecommerce Application
+# Ecommerce Application
 
-##Milestone 1: Project Overview
+## Milestone 1: Project Overview
 
 This project is a simple Ecommerce web application that includes core functionalities such as user authentication, product display, order management, and a payment gateway.
 
@@ -12,7 +12,7 @@ This project is a simple Ecommerce web application that includes core functional
 
 4. Payment Gateway:This is used to process the payment for the products ordered.
 
-##Milestone 2:
+## Milestone 2:
 
 1.Setup Frontend:
 
@@ -34,7 +34,7 @@ nodemon (npm i nodemon):automatically reboots the server on changing files, whic
 
 After all these configurations, this project is ready for complete full-stack development.
 
-##Milestone 3:
+## Milestone 3:
 
 1. Setting up the Node Server: You start by setting up a app.js server, usually with frameworks like Express
 
@@ -44,7 +44,7 @@ After all these configurations, this project is ready for complete full-stack de
 
 created a file name database.js and connected the database and server
 
-##MileStone-4:
+## MileStone-4:
 
 1. User Model for the Database:
    
@@ -58,7 +58,7 @@ created a file name database.js and connected the database and server
 
 5. Error Handling: Error handling ensures that if something goes wrong, the system can report where the problem occurred.
 
-##Milestone 5: 
+## Milestone 5: 
 
 Creating the Signup page
 
@@ -70,7 +70,7 @@ Creating the Signup page
    
   4. This feature is crucial for enabling new users to create accounts and start shopping on the platform.
 
-##Milestone 7:
+## Milestone 7:
 
 Signup:
 
@@ -89,7 +89,7 @@ Login:
 
     
     
-##Milestone 8:
+## Milestone 8:
 
   1. Displays a list of products using the Card component.
     
@@ -103,13 +103,13 @@ Components
    
   2. HomePage: Maps over dummy data and renders each Card.
 
-##Milestone 9:
+## Milestone 9:
 
   1. Form Creation: Collects fields like product name, price, and description.
 
   2. Data Submission: Captures input and sends it via an HTTP POST request to a backend server.
 
-##Milestone 10:
+## Milestone 10:
 
    1. Product Schema: Includes attributes such as product name, price, description, category, stock availability, and an image URL for storing product details.
    
@@ -117,6 +117,9 @@ Components
 
    3. Image Handling: Integrates Multer and Cloudinary to facilitate seamless product image uploads and storage
 
-
+## Milestone 11:
+   1. writing an endpoint that will fetch data from DB.
+   2. Writing an endpoint that will send all products data from DB to frontend
+   
 
 Happy coding!!
