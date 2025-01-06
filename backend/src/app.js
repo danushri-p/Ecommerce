@@ -17,5 +17,5 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRouter);
 app.use('/product', productRouter);
-// connecting the database and running the server
+
 module.exports = app;
