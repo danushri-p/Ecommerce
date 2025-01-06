@@ -118,8 +118,19 @@ Components
    3. Image Handling: Integrates Multer and Cloudinary to facilitate seamless product image uploads and storage
 
 ## Milestone 11:
+
    1. writing an endpoint that will fetch data from DB.
-   2. Writing an endpoint that will send all products data from DB to frontend
    
+   2. Writing an endpoint that will send all products data from DB to frontend
+
+## Milestone 12:
+
+   1. Create a backend GET endpoint to send all products associated with a user's email to the frontend.
+    
+   2. Fetch the data on the frontend using a function.
+
+   3.Dynamically display the data using a ProductCard component.
+
+
 
 Happy coding!!
