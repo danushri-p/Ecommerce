@@ -26,7 +26,6 @@ const createProductController = async (req, res) => {
           return result.url;
         });
     });
-
     const dataImages = await Promise.all(arrayImage);
     const StoreProductDetails = await ProductModel.create({
       title,
@@ -55,5 +54,16 @@ const createProductController = async (req, res) => {
     return res.status(500).send({ message: er.message, success: false });
   }
 };
+const getProductDataController = async (req, res)=>{
+  try{
+    const data = await ProductModel.find();
+    return res
+    .status(200)
+    .send({data,message: 'Data fetched successfully',success: true});
+  }
+  catch(er){
+    return res.status(500).send({message: er.message, success: false});
+  }
+}
 
-module.exports = { createProductController };
+module.exports = { createProductController, getProductDataController };
