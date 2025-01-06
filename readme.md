@@ -71,7 +71,7 @@ Signup:
     2. Password is hashed before storing it in the database.
 
     3. If the user is already registered, they are asked to log in instead.
-    
+
 Login:
 
     1. Users log in with their email and password.
@@ -112,10 +112,12 @@ Milestone 11:
     2. Writing an endpoint that will send all products data from DB to frontend
 
 Milestone 12:
-    1. 
 
-    2. 
+    1. Create a backend GET endpoint to send all products associated with a user's email to the frontend.
 
+    2. Fetch the data on the frontend using a function.
+
+    3.Dynamically display the data using a ProductCard component.
 
 
 Happy coding!!

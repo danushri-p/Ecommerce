@@ -45,6 +45,7 @@ function Card({
           <div>
             <span className="text-xl font-bold text-gray-900">
               {originalPrice}
+              
             </span>
             <span className="ml-2 text-sm text-gray-500 line-through">
               {discountPrice}
