@@ -50,74 +50,87 @@ MileStone-4:
 
 4. Error Handling: Error handling ensures that if something goes wrong, the system can report where the problem occurred.
 
-Milestone 5:
+Milestone 5: 
 
 Creating the Signup page
 
-Developed the signup page for the e-commerce application.
+  1. Developed the signup page for the e-commerce application.
+   
+  2. The page includes a form that allows users to input their name, email, and password.
+   
+  3. The form validates the inputs and submits the data to the backend for user registration.
+   
+  4. This feature is crucial for enabling new users to create accounts and start shopping on the platform.
 
-The page includes a form that allows users to input their name, email, and password.
-
-The form validates the inputs and submits the data to the backend for user registration.
-
-This feature is crucial for enabling new users to create accounts and start shopping on the platform.
 
 Milestone 7:
 
 Signup:
 
-    1. Users provide their name, email, and password.
+   1. Users provide their name, email, and password.
 
-    2. Password is hashed before storing it in the database.
 
-    3. If the user is already registered, they are asked to log in instead.
+   2. Password is hashed before storing it in the database.
+
+   3. If the user is already registered, they are asked to log in instead.
 
 Login:
 
-    1. Users log in with their email and password.
+   1. Users log in with their email and password.
 
-    2. If the credentials are correct, a token is generated and sent as a cookie.
+
+    
+   2. Password is hashed before storing it in the database.
+    
+   3. If the user is already registered, they are asked to log in instead.
+  
+Login:
+
+   1. Users log in with their email and password.
+    
+
+   2. If the credentials are correct, a token is generated and sent as a cookie.
 
 Milestone 8:
-    1. Displays a list of products using the Card component.
+   1. Displays a list of products using the Card component.
 
-    2. Dummy data used for product titles.
+   2. Dummy data used for product titles.
 
-    3. Each product is rendered with its title.
+   3. Each product is rendered with its title.
 
 Components
 
-    1. Card: Displays individual product titles.
+   1. Card: Displays individual product titles.
 
-    2. HomePage: Maps over dummy data and renders each Card.
+   2. HomePage: Maps over dummy data and renders each Card.
 
 Milestone 9:
 
-    1. Form Creation: Collects fields like product name, price, and description.
+   1. Form Creation: Collects fields like product name, price, and description.
 
-    2. Data Submission: Captures input and sends it via an HTTP POST request to a backend server.
+   2. Data Submission: Captures input and sends it via an HTTP POST request to a backend server.
 
 Milestone 10:
 
-    1. Product Schema: Includes attributes such as product name, price, description, category, stock availability, and an image URL for storing product details.
+   1. Product Schema: Includes attributes such as product name, price, description, category, stock availability, and an image URL for storing product details.
 
-    2. Data Submission Endpoint: Provides a /add-product API route for saving product information to the MongoDB database.
+   2. Data Submission Endpoint: Provides a /add-product API route for saving product information to the MongoDB database.
 
-    3. Image Handling: Integrates Multer and Cloudinary to facilitate seamless product image uploads and storage
+   3. Image Handling: Integrates Multer and Cloudinary to facilitate seamless product image uploads and storage
 
 Milestone 11:
 
-    1. writing an endpoint that will fetch data from DB.
+   1. writing an endpoint that will fetch data from DB.
 
-    2. Writing an endpoint that will send all products data from DB to frontend
+   2. Writing an endpoint that will send all products data from DB to frontend
 
 Milestone 12:
 
-    1. Create a backend GET endpoint to send all products associated with a user's email to the frontend.
+   1. Create a backend GET endpoint to send all products associated with a user's email to the frontend.
 
-    2. Fetch the data on the frontend using a function.
+   2. Fetch the data on the frontend using a function.
 
-    3.Dynamically display the data using a ProductCard component.
+   3.Dynamically display the data using a ProductCard component.
 
 
 Happy coding!!
