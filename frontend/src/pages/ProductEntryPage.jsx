@@ -12,7 +12,7 @@ function ProductEntryPage() {
     category: '',
   });
   const [errorInput, setInputError] = useState('');
-  const [Images, setImages] = useState(null);
+  const [Images, setImages] = useState([]);
 
   const handleImageUpload = (e) => {
     const ImagesArray = Array.from(e.target.files);
@@ -29,8 +29,12 @@ function ProductEntryPage() {
     });
     console.log(formData);
   };
-  
-  const handleSubmit = (e) => {
+  // 1. take all enteries from the user and store it in use STATES
+  //   e.target.value;
+  //   setdata(...,[name]:value)
+  // 2. take those images and store in another use state
+  // 1. convert the all the image paths and set the state
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     console.log(Images);
@@ -61,18 +65,43 @@ function ProductEntryPage() {
     formDataBody.append('originalPrice', originalPrice);
     formDataBody.append('quantity', quantity);
     formDataBody.append('rating', rating);
-
+    formDataBody.append('token', localStorage.getItem('token'));
+    console.log(Images);
     Images.map((ele) => {
-      formDataBody.append('filepath', ele);
+      formDataBody.append('files', ele);
     });
 
     console.log(formDataBody);
     // axios request post
-    axios.post('http://localhost:8080/product/create-product', formData, {
-      headers: {
-        'Content-Type': 'multi-part/form-data',
-      },
-    });
+    const token = localStorage.getItem('token');
+    let requestdata = await axios
+      .post(
+        `http://localhost:8080/product/create-product?token=${token}`,
+        formDataBody,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((er) => {
+        console.log('error', er);
+        return er;
+      });
+
+    for (let pair of formDataBody.entries()) {
+      if (pair[1] instanceof File) {
+        console.log(
+          `${pair[0]}: File - ${pair[1].name}, ${pair[1].type}, ${pair[1].size} bytes`
+        );
+      } else {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+    }
   };
   return (
     <div
@@ -173,3 +202,13 @@ function ProductEntryPage() {
 }
 
 export default ProductEntryPage;
+
+/* 
+
+
+
+
+
+
+
+*/
