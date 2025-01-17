@@ -190,4 +190,21 @@ Frontend:
       
       e. Optionally, update the UI to reflect the removal of the record without requiring a page reload.
 
+## Milestone 15:
+   
+   1. Navbar Component: A fully mobile-responsive navigation bar with a dropdown menu.
+
+      a. The navbar adapts to smaller screen sizes and provides a seamless navigation experience on mobile devices.
+
+## Milestone 16:
+   1. Single Page Product Details: A dedicated page to view product details.
+
+      a. Users can see detailed information about products such as images, descriptions, and other specifications.
+      
+   3. Image Modal Component: A component that allows users to view product images in a larger modal view.
+      
+      b. Clicking on an image opens a modal with a larger version of the image.
+
+
+
 Happy coding!!
