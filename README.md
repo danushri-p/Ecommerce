@@ -205,6 +205,19 @@ Frontend:
       
       b. Clicking on an image opens a modal with a larger version of the image.
 
+## Milestone 17:
 
+   1. Cart Schema: Defines the structure for storing cart items in the database.
+
+   2. Cart Routes: API endpoints to manage cart operations.
+
+   3. Cart Controller: Implements getCart and addToCart functions.
+
+## Milestone 18:
+
+   1. Get Cart Data Route
+      In this we focused on implementing the API endpoint for fetching cart data.
+      
+      The goal is to retrieve cart information stored in the backend for a given user.
 
 Happy coding!!
