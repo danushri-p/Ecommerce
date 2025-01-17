@@ -1,0 +1,19 @@
+meta {
+  name: ASAP
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name":"choks",
+    "price":120,
+    "description":"white choki"
+  }
+}
