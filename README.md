@@ -216,7 +216,7 @@ Frontend:
 ## Milestone 18:
 
    1. Get Cart Data Route
-      In this we focused on implementing the API endpoint for fetching cart data.
+      In this we have been focusing on implementing the API endpoint for fetching cart data.
       
       The goal is to retrieve cart information stored in the backend for a given user.
 
