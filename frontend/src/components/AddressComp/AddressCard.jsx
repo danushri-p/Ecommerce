@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Ensure axios is imported
 
 const AddressCard = () => {
   const [city, setCity] = useState('');
@@ -7,19 +9,34 @@ const AddressCard = () => {
   const [add2, setAdd2] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [addressType, setAddressType] = useState('');
+  const [state, setState] = useState(''); 
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {  
     e.preventDefault();
     const addressData = {
       city,
       country,
-      address1,
-      address2,
+      add1,  
+      add2,  
       zipCode,
       addressType,
+      state,  
     };
+
     console.log(addressData);
-  }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/user/add-address?token=${token}`,
+        addressData
+      );
+      navigate('/profile');
+    } catch (error) {
+      console.error('Error saving address:', error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
@@ -95,6 +112,6 @@ const AddressCard = () => {
       </div>
     </div>
   );
-  
 };
+
 export default AddressCard;

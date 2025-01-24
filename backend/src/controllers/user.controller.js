@@ -1,10 +1,11 @@
 const UserModel = require('../models/user.model.js');
 const ErrorHandler = require('../utils/ErrorHandler.js');
 const transporter = require('../utils/sendmail.js');
-const jwt = require('jsonwebtoken'); //tokenisation of user data (every communication that happend between server(beknd) and client(ft))
-const bcrypt = require('bcrypt'); //hashes the password only
+const jwt = require('jsonwebtoken'); 
+const bcrypt = require('bcrypt');
 const cloudinary = require('../utils/cloudinary.js');
 const fs = require('fs');
+const { default: mongoose } = require('mongoose');
 require('dotenv').config({
   path: '../config/.env',
 });
@@ -31,6 +32,7 @@ async function CreateUSer(req, res) {
     email: email,
     password: password,
   });
+
   const data = {
     Name,
     email,
@@ -38,8 +40,8 @@ async function CreateUSer(req, res) {
   };
   const token = generateToken(data);
   await transporter.sendMail({
-    to: 'naayaankumar@gmail.com',
-    from: 'naayaankumar@gmail.com',
+    to: 'danushri.saranyaprakash@gmail.com',
+    from: 'danushri.prakashsaranya@gmail.com',
     subject: 'verification email from follow along project',
     text: 'Text',
     html: `<h1>Hello world   http://localhost:5173/activation/${token} </h1>`,
@@ -51,8 +53,8 @@ async function CreateUSer(req, res) {
 }
 
 
+
 const generateToken = (data) => {
-  // jwt
   const token = jwt.sign(
     { name: data.name, email: data.email, id: data.id },
     process.env.SECRET_KEY
@@ -156,10 +158,67 @@ const login = async (req, res) => {
       }
     );
 
-    // return saying signup first
   } catch (er) {
     return res.status(403).send({ message: er.message, success: false });
   }
 };
 
-module.exports = { CreateUSer, verifyUserController, signup, login };
+const getUSerData = async (req, res) => {
+  const userId = req.UserId;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(401).send({ message: 'Send Valid User Id' });
+    }
+
+    const checkUserPresentinDB = await UserModel.findOne({ _id: userId });
+    if (!checkUserPresentinDB) {
+      return res
+        .status(401)
+        .send({ message: 'Please Signup, user not present' });
+    }
+
+    return res.status(200).send({ data: checkUserPresentinDB });
+  } catch (er) {
+    return res.status(500).send({ message: er.message });
+  }
+};
+
+const AddAddressController = async (req, res) => {
+  const userId = req.UserId;
+  const { city, country, address1, address2, zipCode, addressType } = req.body;
+  try {
+    const userFindOne = await UserModel.findOne({ _id: userId });
+    if (!userFindOne) {
+      return res
+        .status(404)
+        .send({ message: 'User not found', success: false });
+    }
+
+    const userAddress = {
+      country,
+      city,
+      address1,
+      address2,
+      zipCode,
+      addressType,
+    };
+
+    userFindOne.address.push(userAddress);
+    const response = await userFindOne.save();
+
+    return res
+      .status(201)
+      .send({ message: 'User Address Added', success: true, response });
+  } catch (er) {
+    return res.status(500).send({ message: er.message });
+  }
+};
+
+module.exports = {
+  CreateUSer,
+  verifyUserController,
+  signup,
+  login,
+  getUSerData,
+  AddAddressController,
+};
