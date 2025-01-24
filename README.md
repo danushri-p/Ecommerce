@@ -216,8 +216,33 @@ Frontend:
 ## Milestone 18:
 
    1. Get Cart Data Route
+
       In this we have been focusing on implementing the API endpoint for fetching cart data.
       
       The goal is to retrieve cart information stored in the backend for a given user.
 
+## Milestone 19:
+   1. This project implements a shopping cart where users can:
+
+      View products added to their cart.
+
+      Increase or decrease product quantity using + and - buttons.
+
+      Backend support for updating the quantity of products.
+
+## Milestone 20:
+   1. This project implements a user profile page where users can:
+
+      View their profile photo, name, and email.
+
+      View their saved addresses.
+
+      Add a new address if none exist.
+
+## Milestone 21:
+   1. Created Address Form Page
+
+   2. Implemented State to Store Input Address
+
+   3. Navigates to Address Form on 'Add Address' Click
 Happy coding!!
