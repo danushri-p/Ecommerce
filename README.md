@@ -245,4 +245,12 @@ Frontend:
    2. Implemented State to Store Input Address
 
    3. Navigates to Address Form on 'Add Address' Click
+
+## Milestone 22:
+
+   1. Create a POST endpoint in your backend that will accept the user's address details from the frontend.
+   
+   2. Validate the address data to ensure all required fields are included.
+   
+   3. Add the address to the user's address array in the MongoDB user collection.
 Happy coding!!
