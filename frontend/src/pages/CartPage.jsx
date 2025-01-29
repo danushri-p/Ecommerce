@@ -22,6 +22,10 @@ function CardPage() {
   }, []);
   return (
     <div>
+      <link to >
+      <button >Checkout</button>
+      </link>
+      
       {UsersCartData?.map((singleCartObject, index) => {
         return (
           <div key={index}>
