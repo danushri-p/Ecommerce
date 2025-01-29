@@ -28,5 +28,6 @@ router.post('/add-address', verifyUser, AddAddressController);
 
 router.delete('/delete-address/:id',verifyUser, DeleteAddyController)
 
-router.post('/get-address', verifyUser, GetAddressController);
+router.post('/get-address', verifyUser, GetAddressConroller);
+
 module.exports = router;

@@ -54,7 +54,6 @@ async function CreateUSer(req, res) {
 
 
 const generateToken = (data) => {
-  // jwt
   const token = jwt.sign(
     { name: data.name, email: data.email, id: data.id },
     process.env.SECRET_KEY
@@ -139,7 +138,6 @@ const login = async (req, res) => {
       password,
       checkUserPresentinDB.password,
       function (err, result) {
-        // result == true
         if (err) {
           return res.status(403).send({ message: er.message, success: false });
         }
@@ -158,7 +156,6 @@ const login = async (req, res) => {
       }
     );
 
-    // return saying signup first
   } catch (er) {
     return res.status(403).send({ message: er.message, success: false });
   }
