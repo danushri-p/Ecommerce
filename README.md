@@ -253,4 +253,12 @@ Frontend:
    2. Validate the address data to ensure all required fields are included.
    
    3. Add the address to the user's address array in the MongoDB user collection.
+
+## Milestone 23:
+
+   1. Cart Page with Place Order Button: A button to place an order, which navigates to the address selection page.
+
+   2. Select Address Page: Displays all the available addresses and allows users to select one.
+   
+   3. Backend Endpoint for User Addresses: An API endpoint to retrieve the list of addresses associated with a user.
 Happy coding!!
