@@ -86,8 +86,6 @@ Login:
   1. Users log in with their email and password.
 
   2. If the credentials are correct, a token is generated and sent as a cookie.
-
-    
     
 ## Milestone 8:
 
@@ -233,11 +231,11 @@ Frontend:
 ## Milestone 20:
    1. This project implements a user profile page where users can:
 
-      View their profile photo, name, and email.
+      a. View their profile photo, name, and email.
 
-      View their saved addresses.
+      b. View their saved addresses.
 
-      Add a new address if none exist.
+      c. Add a new address if none exist.
 
 ## Milestone 21:
    1. Created Address Form Page
@@ -261,4 +259,13 @@ Frontend:
    2. Select Address Page: Displays all the available addresses and allows users to select one.
    
    3. Backend Endpoint for User Addresses: An API endpoint to retrieve the list of addresses associated with a user.
+
+## Milestone 24:
+
+   1. Cart Page: Displays all the products the user has added to the cart, the selected delivery address, and the total value of the cart.
+
+   2. Address Selection: Allows the user to select a delivery address for their order.
+
+   3. Place Order Button: A button to confirm the order and proceed to the final order placement.
+
 Happy coding!!
