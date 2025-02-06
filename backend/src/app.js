@@ -3,6 +3,8 @@ const cors = require('cors');
 const userRouter = require('./routes/user.route.js');
 const productRouter = require('./routes/product.route.js');
 const cartRouter = require('./routes/cart.route.js');
+const OrderRouter = require('./Order.route.js');
+
 if (process.env.NODE_ENV !== 'PRODUCTION') {
   require('dotenv').config({
     path: './src/config/.env',
@@ -23,4 +25,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter);
 app.use('/product', productRouter);
 app.use('/cart', cartRouter);
+app.use('/orders', OrderRouter);
+
+// connecting the database and running the server
 module.exports = app;
