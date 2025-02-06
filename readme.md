@@ -132,5 +132,72 @@ Milestone 12:
 
    3.Dynamically display the data using a ProductCard component.
 
+Milestone 13:
+Backend:
 
-Happy coding!!
+Create a PUT Route for Updating Data:
+
+a. Define a new route in your backend to handle PUT requests for updating existing records.
+
+b. Ensure the route accepts the necessary parameters to identify the record and the updated data.
+
+c. Validate the incoming data to maintain data integrity.
+
+d. Update the record in the database with the new data.
+
+e. Return an appropriate response indicating the success or failure of the operation.
+
+Frontend:
+
+Create a Page for Auto-Filling Updated Data: a. Develop a page that retrieves the current data of the record to be updated.
+
+b. Use the record's unique identifier (e.g., id) to fetch the existing data from the backend.
+
+c. Populate the input fields with the fetched data, allowing the user to modify the necessary fields.
+
+d. Implement form validation to ensure the updated data is valid before submission.
+
+e. Provide a submit button that sends the updated data to the backend via the PUT route.
+
+f. Handle the response from the backend to inform the user of the success or failure of the update operation.
+
+Milestone 14:
+Backend:
+
+Create a DELETE Route: a. Define a new route in your backend to handle DELETE requests for removing records.
+
+b. Ensure the route accepts the necessary parameters to identify the record to be deleted.
+
+c. Validate the request to confirm the record exists before attempting deletion.
+
+d. Remove the record from the database.
+
+e. Return an appropriate response indicating the success or failure of the deletion operation.
+
+Frontend:
+
+Add a Delete Button: a. Include a delete button on the page displaying the record.
+
+b. Attach an event listener to the delete button that triggers a confirmation prompt to prevent accidental deletions.
+
+c. If the user confirms the deletion, send a request to the backend's DELETE route to remove the record.
+
+d. Handle the response from the backend to inform the user of the success or failure of the deletion operation.
+
+e. Optionally, update the UI to reflect the removal of the record without requiring a page reload.
+
+Milestone 15:
+Navbar Component: A fully mobile-responsive navigation bar with a dropdown menu.
+
+a. The navbar adapts to smaller screen sizes and provides a seamless navigation experience on mobile devices.
+
+Milestone 16:
+Single Page Product Details: A dedicated page to view product details.
+
+a. Users can see detailed information about products such as images, descriptions, and other specifications.
+
+Image Modal Component: A component that allows users to view product images in a larger modal view.
+
+b. Clicking on an image opens a modal with a larger version of the image.
+
+code well!!😊
