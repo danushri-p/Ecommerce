@@ -86,8 +86,6 @@ Login:
   1. Users log in with their email and password.
 
   2. If the credentials are correct, a token is generated and sent as a cookie.
-
-    
     
 ## Milestone 8:
 
@@ -189,5 +187,85 @@ Frontend:
       d. Handle the response from the backend to inform the user of the success or failure of the deletion operation.
       
       e. Optionally, update the UI to reflect the removal of the record without requiring a page reload.
+
+## Milestone 15:
+   
+   1. Navbar Component: A fully mobile-responsive navigation bar with a dropdown menu.
+
+      a. The navbar adapts to smaller screen sizes and provides a seamless navigation experience on mobile devices.
+
+## Milestone 16:
+   1. Single Page Product Details: A dedicated page to view product details.
+
+      a. Users can see detailed information about products such as images, descriptions, and other specifications.
+      
+   3. Image Modal Component: A component that allows users to view product images in a larger modal view.
+      
+      b. Clicking on an image opens a modal with a larger version of the image.
+
+## Milestone 17:
+
+   1. Cart Schema: Defines the structure for storing cart items in the database.
+
+   2. Cart Routes: API endpoints to manage cart operations.
+
+   3. Cart Controller: Implements getCart and addToCart functions.
+
+## Milestone 18:
+
+   1. Get Cart Data Route
+
+      In this we have been focusing on implementing the API endpoint for fetching cart data.
+      
+      The goal is to retrieve cart information stored in the backend for a given user.
+
+## Milestone 19:
+   1. This project implements a shopping cart where users can:
+
+      View products added to their cart.
+
+      Increase or decrease product quantity using + and - buttons.
+
+      Backend support for updating the quantity of products.
+
+## Milestone 20:
+   1. This project implements a user profile page where users can:
+
+      a. View their profile photo, name, and email.
+
+      b. View their saved addresses.
+
+      c. Add a new address if none exist.
+
+## Milestone 21:
+   1. Created Address Form Page
+
+   2. Implemented State to Store Input Address
+
+   3. Navigates to Address Form on 'Add Address' Click
+
+## Milestone 22:
+
+   1. Create a POST endpoint in your backend that will accept the user's address details from the frontend.
+   
+   2. Validate the address data to ensure all required fields are included.
+   
+   3. Add the address to the user's address array in the MongoDB user collection.
+
+## Milestone 23:
+
+   1. Cart Page with Place Order Button: A button to place an order, which navigates to the address selection page.
+
+   2. Select Address Page: Displays all the available addresses and allows users to select one.
+   
+   3. Backend Endpoint for User Addresses: An API endpoint to retrieve the list of addresses associated with a user.
+
+## Milestone 24:
+
+   1. Cart Page: Displays all the products the user has added to the cart, the selected delivery address, and the total value of the cart.
+
+   2. Address Selection: Allows the user to select a delivery address for their order.
+
+   3. Place Order Button: A button to confirm the order and proceed to the final order placement.
 
 Happy coding!!
