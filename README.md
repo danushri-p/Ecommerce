@@ -268,4 +268,26 @@ Frontend:
 
    3. Place Order Button: A button to confirm the order and proceed to the final order placement.
 
+## Milestone 25:
+
+   1. User Authentication: Used for registration and login.
+
+   2. Product Page: Displays the products available for purchase.
+
+   3. Order Management: Allows users to place orders for products.
+
+## Milestone 26:
+
+   1. Receive the User's Email
+      Create a POST endpoint that receives the user's email in the request body.
+
+   2. Retrieve User ID
+      Use the email to query your database and retrieve the user's _id.
+
+   3. Retrieve Orders
+      Use the retrieved _id to query your database and get all the orders associated with that user.
+
+   4. Send the Response
+      Send the user's orders in the response
+
 Happy coding!!
