@@ -40,7 +40,6 @@ function OrderHistory() {
             <CartCard
               title={singleCartObject.orderItems.title}
               images={singleCartObject.orderItems.images[0]}
-              //   Index={index}
               description={singleCartObject.orderItems.description}
               originalPrice={singleCartObject.orderItems.originalPrice}
               discountedPrice={singleCartObject.orderItems.discountedPrice}

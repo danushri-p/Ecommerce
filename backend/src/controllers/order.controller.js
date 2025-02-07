@@ -1,6 +1,7 @@
-const { default: mongoose } = require('mongoose');
-const OrderModel = require('../models/Order.model');
-
+const { mongoose } = require('mongoose');
+const OrderModel = require('../models/Order.model.js');
+const CartModel = require('../models/cart.model.js');
+const UserModel = require('../models/user.model.js');
 async function CreateOrderController(req, res) {
   const userId = req.UserId;
   const { Items, address, totalAmount } = req.body;
@@ -22,26 +23,35 @@ async function CreateOrderController(req, res) {
         .status(400)
         .send({ message: 'Items not present', success: false });
     }
-
-    const order = await OrderModel.create({
-      user: userId,
-      orderItems: Items,
-      shippingAddress: address,
-      totalAmount: totalAmount,
+    const order = Items.map(async (ele) => {
+      return await OrderModel.create({
+        user: userId,
+        orderItems: ele.productId._id,
+        shippingAddress: address,
+        totalAmount: totalAmount,
+      });
     });
-    return res
-      .status(201)
-      .send({ message: 'Data Successfully fetched', success: true, order });
+    await Promise.all(order);
+
+    const ItemsMapped = Items.map(async (eachItem) => {
+      return await CartModel.findByIdAndDelete({ _id: eachItem._id });
+    });
+    const checkDeletedItems = await Promise.all(ItemsMapped);
+
+    return res.status(201).send({
+      message: 'Data Successfully fetched',
+      success: true,
+      checkDeletedItems,
+    });
   } catch (er) {
     return res.status(500).send({ message: er.message, success: false });
   }
 }
 
-const ItemsMapped = Items.map(async)
 async function GetUserOrdersController(req, res) {
   const userId = req.UserId;
   try {
-    if (!mongoose.Types.ObjectId.isValid) {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res
         .status(400)
         .send({ message: 'In valid user id', success: false });
@@ -53,7 +63,14 @@ async function GetUserOrdersController(req, res) {
         .send({ message: 'Please sign up', success: false });
     }
 
-    const orders = await OrderModel.find({ user: userId });
+    const orders = await OrderModel.find(
+      {
+        user: userId,
+        orderStatus: { $ne: 'Cancelled' },
+      },
+      { orderStatus: 1, orderItems: 1 }
+    ).populate('orderItems');
+
     return res
       .status(200)
       .send({ message: 'Data Successfully fetched', success: true, orders });
@@ -62,7 +79,40 @@ async function GetUserOrdersController(req, res) {
   }
 }
 
+async function CancelOrder(req, res) {
+  const userId = req.UserId;
+  const orderId = req.query.orderId;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res
+        .status(400)
+        .send({ message: 'InValid User Id', success: false });
+    }
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      return res
+        .status(400)
+        .send({ message: 'InValid Order Id', success: false });
+    }
+
+    await OrderModel.findByIdAndUpdate(
+      { _id: orderId },
+      {
+        orderStatus: 'Cancelled',
+      },
+      {
+        new: true,
+      }
+    );
+    return res
+      .status(200)
+      .send({ message: 'Order cancelled successfully..', success: true });
+  } catch (er) {
+    return res.status(500).send({ message: er.message, success: false });
+  }
+}
+
 module.exports = {
   CreateOrderController,
   GetUserOrdersController,
+  CancelOrder,
 };
