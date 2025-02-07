@@ -9,9 +9,7 @@ export default function OrderConfirmation() {
     JSON.parse(localStorage.getItem('address')) || {}
   );
   const navigate = useNavigate();
-  // totoal
-  // address
-  // cart data
+
   useEffect(() => {
     const getCartData = async () => {
       const token = localStorage.getItem('token');

@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose');
 const UserModel = require('../models/user.model');
 const CartModel = require('../models/cart.model');
@@ -61,6 +59,7 @@ async function GetProductsForUser(req, res) {
     }
 
     const data = await CartModel.find({ userId }).populate('productId');
+    const data = await CartModel.find({ userId });
     return res.status(200).send({
       message: 'Data is successfully fetched',
       success: true,

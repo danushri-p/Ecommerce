@@ -10,6 +10,7 @@ export default function CartCard({
   rating,
   id,
   createdBy,
+<<<<<<< HEAD
   orderStatus,
   handleCancel,
 }) {
@@ -23,6 +24,12 @@ export default function CartCard({
       <div className="flex gap-6">
         {/* Product Image */}
 
+=======
+}) {
+  return (
+    <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-4">
+      <div className="flex gap-6">
+>>>>>>> aa180ecdf46dc81c05c3aa1519c1b6f7af8470b1
         <div className="relative w-64">
           <Link to={`/product-details/${id}`}>
             <img
@@ -33,7 +40,10 @@ export default function CartCard({
           </Link>
         </div>
 
+<<<<<<< HEAD
         {/* Product Details */}
+=======
+>>>>>>> aa180ecdf46dc81c05c3aa1519c1b6f7af8470b1
         <div className="flex-1">
           <div className="flex justify-between items-start">
             <div>
@@ -41,18 +51,26 @@ export default function CartCard({
               <p className="text-lg text-gray-600">{description}</p>
               <p className="text-gray-500 mt-1">Sold by: {createdBy}</p>
             </div>
+<<<<<<< HEAD
 
             <button
               className="text-gray-500 hover:text-gray-700"
               onClick={orderStatus ? () => handleCancel(id) : () => {}}
             >
+=======
+            <button className="text-gray-500 hover:text-gray-700">
+>>>>>>> aa180ecdf46dc81c05c3aa1519c1b6f7af8470b1
               <X className="w-6 h-6" />
             </button>
           </div>
 
+<<<<<<< HEAD
           {/* Size and Quantity Selectors */}
 
           {/* Price Information */}
+=======
+
+>>>>>>> aa180ecdf46dc81c05c3aa1519c1b6f7af8470b1
           <div className="mt-6 flex items-center gap-3">
             <span className="text-2xl font-bold">₹{originalPrice}</span>
             <span className="text-gray-500 line-through">
@@ -61,7 +79,10 @@ export default function CartCard({
             <span className="text-red-500">{discountedPrice}% OFF</span>
           </div>
 
+<<<<<<< HEAD
           {/* Return Policy */}
+=======
+>>>>>>> aa180ecdf46dc81c05c3aa1519c1b6f7af8470b1
           <div className="mt-4 flex items-center gap-2 text-gray-600">
             <RotateCcw className="w-5 h-5" />
             <span>14 days return available</span>
