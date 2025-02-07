@@ -1,13 +1,5 @@
 const mongoose = require('mongoose');
 
-// {
-//   user: ObjectId();
-//   orderItems: [_id, _id];
-//   shippingAddress: {
-//   }
-//   totalAmount: 100;
-//   orderStatus: 'Processing';
-// }
 
 const orderSchema = new mongoose.Schema(
   {
@@ -16,9 +8,12 @@ const orderSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    orderItems: [
-      { type: mongoose.Schema.Types.ObjectId, ref: 'Product', require: true },
-    ],
+    orderItems: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+      require: true,
+    },
+
     shippingAddress: {
       country: { type: String, required: true },
       city: { type: String, required: true },

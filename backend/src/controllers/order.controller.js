@@ -37,6 +37,7 @@ async function CreateOrderController(req, res) {
   }
 }
 
+const ItemsMapped = Items.map(async)
 async function GetUserOrdersController(req, res) {
   const userId = req.UserId;
   try {
