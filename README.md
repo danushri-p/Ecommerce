@@ -216,3 +216,82 @@ After these configurations, the project is ready for full-stack development.
      
   3. Stored order details in a MongoDB collection.
 
+# Milestone 26: 
+
+  1. Retrieve User ID:
+
+     Extract the user's email from the request.
+
+     Query the database to get the corresponding _id of the user.
+
+  2. Fetch User Orders:
+
+     Use the retrieved _id to search for all orders linked to that user.
+
+     Retrieve and structure the order details.
+
+  3. Send Response:
+
+     Return all orders of the user in the response.
+
+     Handle errors appropriately if the user is not found or has no orders.
+
+# Milestone 26: My Orders Page
+
+  Created a My Orders page to display all the user's orders.
+
+  Sent a GET request to the my-orders endpoint, passing the user’s email to retrieve order details.
+
+  Fetched all orders associated with the user from the backend.
+  
+  Displayed the retrieved orders in a structured format on the My Orders page.
+  
+  Added a My Orders link in the navbar for easy navigation.
+
+# Milestone 28: Cancel Order Feature
+
+  Added a Cancel Order button for each order on the My Orders page.
+
+  The Cancel Order button is not displayed for orders that are already canceled.
+
+  Created a POST endpoint to receive the order-id.
+
+  Retrieved the order using the provided order-id, updated its status to canceled, and saved the changes.
+
+# Milestone 29: Setting Up PayPal Payments
+
+  Created a PayPal Developer Account and accessed the PayPal Developer Dashboard.
+
+  Generated a Sandbox Account and copied the UserID for testing.
+  
+  Retrieved and saved the Client ID from the sandbox accounts.
+  
+  Updated the Order Confirmation Page to include two payment options:
+
+  Cash on Delivery (COD)
+  
+  Online Payment (PayPal)
+  
+  Added radio buttons to allow users to select their preferred payment method.
+
+  Displayed PayPal buttons when the user selects Online Payment.
+
+  The next milestone will focus on integrating and handling PayPal payments.
+
+# Milestone 30: Implementing PayPal Online Payment
+
+  Used the PayPal Client ID from the Sandbox Account for integration.
+  
+  Installed the react-paypal-js package to handle PayPal payments.
+  
+  Implemented the PayPalScriptProvider component to display PayPal payment options like credit/debit cards.
+  
+  Integrated PayPal API to enable secure online payments.
+  
+  The payment method is displayed only when the user selects the Online Payment option
+
+# Milestone 31: Implementing Redux for Global User Email State
+
+  This milestone focuses on integrating Redux into the application to manage the user's email globally. 
+  
+  It involves setting up a Redux store, creating actions for updating the user’s email, and using the Provider component to make the store available throughout the app.
