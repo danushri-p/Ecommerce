@@ -1,8 +1,8 @@
 const UserModel = require('../models/user.model.js');
 const ErrorHandler = require('../utils/ErrorHandler.js');
 const transporter = require('../utils/sendmail.js');
-const jwt = require('jsonwebtoken'); 
-const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken'); //tokenisation of user data (every communication that happend between server(beknd) and client(ft))
+const bcrypt = require('bcrypt'); //hashes the password only
 const cloudinary = require('../utils/cloudinary.js');
 const fs = require('fs');
 const { default: mongoose } = require('mongoose');
@@ -32,7 +32,10 @@ async function CreateUSer(req, res) {
     email: email,
     password: password,
   });
-
+  // send mail
+  // 1. Link (http://localhost:5173/activation/{token})
+  // 2. send the above link as mail
+  // 3. direct the user to activation page
   const data = {
     Name,
     email,
@@ -54,6 +57,7 @@ async function CreateUSer(req, res) {
 
 
 const generateToken = (data) => {
+  // jwt
   const token = jwt.sign(
     { name: data.name, email: data.email, id: data.id },
     process.env.SECRET_KEY
@@ -138,6 +142,7 @@ const login = async (req, res) => {
       password,
       checkUserPresentinDB.password,
       function (err, result) {
+        // result == true
         if (err) {
           return res.status(403).send({ message: er.message, success: false });
         }
@@ -148,14 +153,22 @@ const login = async (req, res) => {
         };
         const token = generateToken(data);
 
-        return res.status(200).cookie('token', token).send({
-          message: 'User logged in successfully..',
-          success: true,
-          token,
-        });
+        return res
+          .status(200)
+          .cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict',
+          })
+          .send({
+            message: 'User logged in successfully..',
+            success: true,
+            token,
+          });
       }
     );
 
+    // return saying signup first
   } catch (er) {
     return res.status(403).send({ message: er.message, success: false });
   }
