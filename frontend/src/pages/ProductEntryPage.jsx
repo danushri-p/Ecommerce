@@ -11,6 +11,7 @@ function ProductEntryPage() {
     quantity: 0,
     category: '',
   });
+  const data = useSelector((state) => state.user);
   const [errorInput, setInputError] = useState('');
   const [Images, setImages] = useState([]);
 
@@ -29,6 +30,11 @@ function ProductEntryPage() {
     });
     console.log(formData);
   };
+  // 1. take all enteries from the user and store it in use STATES
+  //   e.target.value;
+  //   setdata(...,[name]:value)
+  // 2. take those images and store in another use state
+  // 1. convert the all the image paths and set the state
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
@@ -67,6 +73,7 @@ function ProductEntryPage() {
     });
 
     console.log(formDataBody);
+    // axios request post
     const token = localStorage.getItem('token');
     let requestdata = await axios
       .post(
@@ -197,3 +204,12 @@ function ProductEntryPage() {
 
 export default ProductEntryPage;
 
+/* 
+
+
+
+
+
+
+
+*/

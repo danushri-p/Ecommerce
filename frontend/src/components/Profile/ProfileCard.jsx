@@ -1,6 +1,6 @@
-
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const Card = ({ children, className = '' }) => (
   <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
@@ -23,34 +23,54 @@ const InfoSection = ({ icon, label, value }) => (
 );
 export function ProfileCard() {
   const [userData, setUserData] = useState({});
-  useEffect(() => {
-    const getUserData = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        return alert('Token missing login');
-      }
-      const response = await axios.get(
-        `http://localhost:8080/user/user-data?token=${token}`
-      );
+  const getUserData = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return alert('Token missing login');
+    }
+    const response = await axios.get(
+      `http://localhost:8080/user/user-data?token=${token}`
+    );
 
-      setUserData(response.data.data);
-    };
+    setUserData(response.data.data);
+  };
+  const data = useSelector((state) => state.user);
+  console.log(data);
+  useEffect(() => {
     getUserData();
   }, []);
 
-
-  const handleDeleteAddy = async(id)=>{
+  const handleDeleteAddy = async (id) => {
     const token = localStorage.getItem('token');
-    
-  }
+    try {
+      if (!token) {
+        return alert('Token missing');
+      }
+      const response = await axios.delete(
+        `http://localhost:8080/user/delete-address/${id}?token=${token}`
+      );
+      getUserData();
+    } catch (er) {
+      console.log(er.response.message);
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <Card className="max-w-2xl mx-auto">
-        {}
+        {/* Header Section */}
 
         <div className="flex items-center gap-4 mb-8">
           <div className="bg-blue-100 p-4 rounded-full">
-            {}
+            {/* <svg
+              className="w-12 h-12 text-blue-600"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg> */}
             <img
               src={userData?.avatar?.url}
               alt=""
@@ -64,7 +84,7 @@ export function ProfileCard() {
             <span className="text-gray-500 capitalize">{userData.role}</span>
           </div>
         </div>
-        {}
+        {/* Info Sections */}
         <div className="space-y-6">
           <InfoSection
             icon={
@@ -135,15 +155,25 @@ export function ProfileCard() {
               userData?.address?.length > 0 ? (
                 <ul className="list-disc list-inside">
                   {userData.address.map((SingleAddy, index) => (
-                    <>
-                      <button>Delete</button>
-                      <li key={index}>City: {SingleAddy.city}</li>
-                      <li key={index}>Country: {SingleAddy.country}</li>
-                      <li key={index}>Address 1: {SingleAddy.address1}</li>
-                      <li key={index}>Address 2: {SingleAddy.address2}</li>
-                      <li key={index}>Pin Code: {SingleAddy.zipCode}</li>
+                    <div key={index}>
+                      <button onClick={() => handleDeleteAddy(SingleAddy._id)}>
+                        Delete 👇🏻
+                      </button>
+                      <li key={SingleAddy._id}>City: {SingleAddy.city}</li>
+                      <li key={SingleAddy._id}>
+                        Country: {SingleAddy.country}
+                      </li>
+                      <li key={SingleAddy._id}>
+                        Address 1: {SingleAddy.address1}
+                      </li>
+                      <li key={SingleAddy._id}>
+                        Address 2: {SingleAddy.address2}
+                      </li>
+                      <li key={SingleAddy._id}>
+                        Pin Code: {SingleAddy.zipCode}
+                      </li>
                       <br />
-                    </>
+                    </div>
                   ))}
                 </ul>
               ) : (
@@ -154,7 +184,7 @@ export function ProfileCard() {
             }
           />
         </div>
-        {}
+        {/* Edit Button */}
         <button className="mt-8 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
           Edit Profile
         </button>
