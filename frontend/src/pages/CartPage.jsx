@@ -4,7 +4,7 @@ import CartCard from '../component/ProductCard/CartCard';
 import { Link } from 'react-router-dom';
 function CardPage() {
   const [UsersCartData, setUsersCartData] = useState([]);
-
+  const data = useSelector((state) => state.user);
   useEffect(() => {
     const getCartData = async () => {
       const token = localStorage.getItem('token');
@@ -40,7 +40,7 @@ function CardPage() {
                   originalPrice={singleCartObject.productId.originalPrice}
                   discountedPrice={singleCartObject.productId.discountedPrice}
                   id={singleCartObject.productId._id}
-                  createdBy={'nayan@k.com'}
+                  createdBy={'danu@p.com'}
                 />
               </div>
             );
