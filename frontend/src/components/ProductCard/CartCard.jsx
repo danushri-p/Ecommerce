@@ -1,5 +1,13 @@
 import { Link } from 'react-router-dom';
-import { X, RotateCcw } from 'lucide-react';
+import { X, RotateCcw, PackageCheck } from 'lucide-react';
+
+const statusStyles = {
+  Processing: 'bg-blue-100 text-blue-800',
+  Shipped: 'bg-amber-100 text-amber-800',
+  Delivered: 'bg-green-100 text-green-800',
+  Cancelled: 'bg-red-100 text-red-800',
+};
+
 export default function CartCard({
   title,
   images,
@@ -12,17 +20,36 @@ export default function CartCard({
   createdBy,
   orderStatus,
   handleCancel,
+  handleMarkDelivered,
 }) {
   const discountPercent =
     originalPrice > 0
       ? Math.round(((originalPrice - discountedPrice) / originalPrice) * 100)
       : 0;
 
+  const canMarkDelivered =
+    orderStatus && orderStatus !== 'Delivered' && orderStatus !== 'Cancelled';
+
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4">
       {orderStatus && (
-        <div className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
-          {orderStatus}
+        <div className="flex items-center justify-between mb-4">
+          <div
+            className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+              statusStyles[orderStatus] || 'bg-gray-100 text-gray-800'
+            }`}
+          >
+            {orderStatus}
+          </div>
+          {canMarkDelivered && (
+            <button
+              onClick={() => handleMarkDelivered(id)}
+              className="flex items-center gap-1.5 text-sm font-medium text-green-700 hover:text-green-800"
+            >
+              <PackageCheck className="w-4 h-4" />
+              Mark as Delivered
+            </button>
+          )}
         </div>
       )}
       <div className="flex gap-6">

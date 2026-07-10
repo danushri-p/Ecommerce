@@ -264,6 +264,78 @@ const DeleteAddyController = async (req, res) => {
   }
 };
 
+const UpdateProfileController = async (req, res) => {
+  const userId = req.UserId;
+  const { Name } = req.body;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res
+        .status(401)
+        .send({ message: 'Un-Authorised please signup', success: false });
+    }
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId,
+      { Name },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res
+        .status(404)
+        .send({ message: 'User not found', success: false });
+    }
+    return res.status(200).send({
+      message: 'Profile updated successfully',
+      success: true,
+      data: updatedUser,
+    });
+  } catch (er) {
+    return res.status(500).send({ message: er.message, success: false });
+  }
+};
+
+const UpdateAddressController = async (req, res) => {
+  const userId = req.UserId;
+  const { id } = req.params;
+  const { city, country, address1, address2, zipCode, addressType } =
+    req.body;
+  try {
+    if (
+      !mongoose.Types.ObjectId.isValid(userId) ||
+      !mongoose.Types.ObjectId.isValid(id)
+    ) {
+      return res
+        .status(400)
+        .send({ message: 'Invalid id', success: false });
+    }
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { _id: userId, 'address._id': id },
+      {
+        $set: {
+          'address.$.city': city,
+          'address.$.country': country,
+          'address.$.address1': address1,
+          'address.$.address2': address2,
+          'address.$.zipCode': zipCode,
+          'address.$.addressType': addressType,
+        },
+      },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res
+        .status(404)
+        .send({ message: 'Address not found', success: false });
+    }
+    return res.status(200).send({
+      message: 'Address updated successfully',
+      success: true,
+      data: updatedUser,
+    });
+  } catch (er) {
+    return res.status(500).send({ message: er.message, success: false });
+  }
+};
+
 const GetAddressConroller = async (req, res) => {
   const userId = req.UserId;
   try {
@@ -293,4 +365,6 @@ module.exports = {
   getUSerData,
   AddAddressController,
   DeleteAddyController,
+  UpdateProfileController,
+  UpdateAddressController,
 };

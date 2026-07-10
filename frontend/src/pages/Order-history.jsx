@@ -31,6 +31,16 @@ function OrderHistory() {
     );
     fetchedOrderedProducts();
   };
+  const handleMarkDelivered = async (id) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return alert('Token is missing , Please login');
+    }
+    await axios.patch(
+      `http://localhost:8080/orders/mark-delivered?token=${token}&orderId=${id}`
+    );
+    fetchedOrderedProducts();
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -60,6 +70,7 @@ function OrderHistory() {
                 orderStatus={singleCartObject.orderStatus}
                 createdBy={singleCartObject.orderItems.userEmail}
                 handleCancel={handleCancel}
+                handleMarkDelivered={handleMarkDelivered}
               />
             );
           })

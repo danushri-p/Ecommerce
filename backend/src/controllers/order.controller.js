@@ -111,8 +111,42 @@ async function CancelOrder(req, res) {
   }
 }
 
+async function MarkOrderDelivered(req, res) {
+  const userId = req.UserId;
+  const orderId = req.query.orderId;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res
+        .status(400)
+        .send({ message: 'InValid User Id', success: false });
+    }
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      return res
+        .status(400)
+        .send({ message: 'InValid Order Id', success: false });
+    }
+
+    const updated = await OrderModel.findOneAndUpdate(
+      { _id: orderId, user: userId },
+      { orderStatus: 'Delivered', deliveredAt: new Date() },
+      { new: true }
+    );
+    if (!updated) {
+      return res
+        .status(404)
+        .send({ message: 'Order not found', success: false });
+    }
+    return res
+      .status(200)
+      .send({ message: 'Order marked as delivered', success: true });
+  } catch (er) {
+    return res.status(500).send({ message: er.message, success: false });
+  }
+}
+
 module.exports = {
   CreateOrderController,
   GetUserOrdersController,
   CancelOrder,
+  MarkOrderDelivered,
 };

@@ -9,6 +9,8 @@ const {
   AddAddressController,
   DeleteAddyController,
   GetAddressConroller,
+  UpdateProfileController,
+  UpdateAddressController,
 } = require('../controllers/user.controller.js');
 const jwt = require('jsonwebtoken');
 const verifyUser = require('../middlewares/jwt-verify.js');
@@ -28,4 +30,8 @@ router.post('/add-address', verifyUser, AddAddressController);
 router.delete('/delete-address/:id', verifyUser, DeleteAddyController);
 
 router.get('/get-addresses', verifyUser, GetAddressConroller);
+
+router.put('/update-profile', verifyUser, UpdateProfileController);
+
+router.put('/update-address/:id', verifyUser, UpdateAddressController);
 module.exports = router;

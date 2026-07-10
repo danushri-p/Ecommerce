@@ -2,7 +2,17 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Fingerprint, Mail, UserCircle, MapPin, Trash2, User } from 'lucide-react';
+import {
+  Fingerprint,
+  Mail,
+  UserCircle,
+  MapPin,
+  Trash2,
+  User,
+  Pencil,
+  Check,
+  X,
+} from 'lucide-react';
 
 const Card = ({ children, className = '' }) => (
   <div className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 ${className}`}>
@@ -24,9 +34,25 @@ const InfoSection = ({ icon, label, value }) => (
   </div>
 );
 
+const addressFields = [
+  { name: 'city', placeholder: 'City' },
+  { name: 'country', placeholder: 'Country' },
+  { name: 'address1', placeholder: 'Address Line 1' },
+  { name: 'address2', placeholder: 'Address Line 2' },
+  { name: 'zipCode', placeholder: 'Zip Code' },
+];
+
+const inputClass =
+  'w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600';
+
 export function ProfileCard() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [nameDraft, setNameDraft] = useState('');
+  const [editingAddressId, setEditingAddressId] = useState(null);
+  const [addressDraft, setAddressDraft] = useState({});
+
   const getUserData = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -58,6 +84,45 @@ export function ProfileCard() {
       console.log(er.response.message);
     }
   };
+
+  const startEditingName = () => {
+    setNameDraft(userData.Name || '');
+    setIsEditingName(true);
+  };
+
+  const saveName = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.put(
+        `http://localhost:8080/user/update-profile?token=${token}`,
+        { Name: nameDraft }
+      );
+      setIsEditingName(false);
+      getUserData();
+    } catch (er) {
+      alert(er.response?.data?.message || er.message);
+    }
+  };
+
+  const startEditingAddress = (address) => {
+    setEditingAddressId(address._id);
+    setAddressDraft({ ...address });
+  };
+
+  const saveAddress = async (id) => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.put(
+        `http://localhost:8080/user/update-address/${id}?token=${token}`,
+        addressDraft
+      );
+      setEditingAddressId(null);
+      getUserData();
+    } catch (er) {
+      alert(er.response?.data?.message || er.message);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -75,10 +140,44 @@ export function ProfileCard() {
                 <User className="w-8 h-8 text-blue-600" />
               )}
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">
-                {userData.Name}
-              </h1>
+            <div className="flex-1">
+              {isEditingName ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    autoFocus
+                    value={nameDraft}
+                    onChange={(e) => setNameDraft(e.target.value)}
+                    className={inputClass}
+                  />
+                  <button
+                    onClick={saveName}
+                    className="text-green-600 hover:text-green-700"
+                    aria-label="Save name"
+                  >
+                    <Check className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => setIsEditingName(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                    aria-label="Cancel"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl font-bold text-gray-900">
+                    {userData.Name}
+                  </h1>
+                  <button
+                    onClick={startEditingName}
+                    className="text-gray-400 hover:text-blue-600"
+                    aria-label="Edit name"
+                  >
+                    <Pencil className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
               <span className="text-gray-500 capitalize text-sm">
                 {userData.role}
               </span>
@@ -113,28 +212,75 @@ export function ProfileCard() {
               value={
                 userData?.address?.length > 0 ? (
                   <div className="space-y-2 mt-1">
-                    {userData.address.map((SingleAddy) => (
-                      <div
-                        key={SingleAddy._id}
-                        className="border border-gray-200 rounded-lg p-3 flex items-start justify-between gap-3"
-                      >
-                        <div className="text-sm text-gray-700 space-y-0.5">
-                          <p className="font-medium text-gray-900">
-                            {SingleAddy.city}, {SingleAddy.country}
-                          </p>
-                          <p>{SingleAddy.address1}</p>
-                          {SingleAddy.address2 && <p>{SingleAddy.address2}</p>}
-                          <p>Pin Code: {SingleAddy.zipCode}</p>
-                        </div>
-                        <button
-                          onClick={() => handleDeleteAddy(SingleAddy._id)}
-                          className="text-gray-400 hover:text-red-500 shrink-0"
-                          aria-label="Delete address"
+                    {userData.address.map((SingleAddy) =>
+                      editingAddressId === SingleAddy._id ? (
+                        <div
+                          key={SingleAddy._id}
+                          className="border border-blue-200 rounded-lg p-3 space-y-2"
                         >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ))}
+                          {addressFields.map((f) => (
+                            <input
+                              key={f.name}
+                              placeholder={f.placeholder}
+                              value={addressDraft[f.name] || ''}
+                              onChange={(e) =>
+                                setAddressDraft({
+                                  ...addressDraft,
+                                  [f.name]: e.target.value,
+                                })
+                              }
+                              className={inputClass}
+                            />
+                          ))}
+                          <div className="flex gap-2 justify-end">
+                            <button
+                              onClick={() => saveAddress(SingleAddy._id)}
+                              className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md"
+                            >
+                              Save
+                            </button>
+                            <button
+                              onClick={() => setEditingAddressId(null)}
+                              className="text-sm border border-gray-300 px-3 py-1.5 rounded-md text-gray-600"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div
+                          key={SingleAddy._id}
+                          className="border border-gray-200 rounded-lg p-3 flex items-start justify-between gap-3"
+                        >
+                          <div className="text-sm text-gray-700 space-y-0.5">
+                            <p className="font-medium text-gray-900">
+                              {SingleAddy.city}, {SingleAddy.country}
+                            </p>
+                            <p>{SingleAddy.address1}</p>
+                            {SingleAddy.address2 && (
+                              <p>{SingleAddy.address2}</p>
+                            )}
+                            <p>Pin Code: {SingleAddy.zipCode}</p>
+                          </div>
+                          <div className="flex gap-2 shrink-0">
+                            <button
+                              onClick={() => startEditingAddress(SingleAddy)}
+                              className="text-gray-400 hover:text-blue-600"
+                              aria-label="Edit address"
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteAddy(SingleAddy._id)}
+                              className="text-gray-400 hover:text-red-500"
+                              aria-label="Delete address"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      )
+                    )}
                   </div>
                 ) : (
                   <span className="text-gray-400 italic">

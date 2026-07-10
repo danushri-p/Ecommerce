@@ -9,6 +9,7 @@ function SinglePageProduct() {
   const [product, setProduct] = useState({});
   const [showImageModal, setShowImageModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
   useEffect(() => {
     // get the single product data
@@ -21,7 +22,42 @@ function SinglePageProduct() {
       setProduct(response.data.data);
     };
     getProductSingleDetails();
+
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    setIsWishlisted(wishlist.includes(id));
   }, [id]);
+
+  const handleAddToCart = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.post(
+        `http://localhost:8080/cart/add-to-cart?token=${token}`,
+        { productId: id, quantity: 1 }
+      );
+      alert('Product Added To Cart Successfully...');
+    } catch (er) {
+      alert(er.response?.data?.message || er.message);
+    }
+  };
+
+  const toggleWishlist = () => {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const updated = isWishlisted
+      ? wishlist.filter((pid) => pid !== id)
+      : [...wishlist, id];
+    localStorage.setItem('wishlist', JSON.stringify(updated));
+    setIsWishlisted(!isWishlisted);
+  };
+
+  const discountPercent =
+    product.originalPrice > 0
+      ? Math.round(
+          ((product.originalPrice - product.discountedPrice) /
+            product.originalPrice) *
+            100
+        )
+      : 0;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -36,7 +72,7 @@ function SinglePageProduct() {
                     setSelectedImage(idx);
                     setShowImageModal(true);
                   }}
-                  className="aspect-[3/4] relative group overflow-hidden"
+                  className="aspect-[3/4] relative group overflow-hidden rounded-lg bg-white"
                 >
                   <img
                     src={image}
@@ -52,8 +88,14 @@ function SinglePageProduct() {
           {/* Product Details */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-2xl font-bold">{product.brand}</h1>
-              <p className="text-gray-600 mt-1">{product.title}</p>
+              <h1 className="text-2xl font-bold text-gray-900">
+                {product.title}
+              </h1>
+              {product.category && (
+                <span className="inline-block mt-2 text-xs font-medium uppercase tracking-wide text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                  {product.category}
+                </span>
+              )}
             </div>
 
             <div className="flex items-center gap-4">
@@ -61,6 +103,11 @@ function SinglePageProduct() {
                 <span className="font-semibold">{product.rating}</span>
                 <Star className="w-4 h-4 fill-green-700 text-green-700" />
               </div>
+              {product.quantity > 0 ? (
+                <span className="text-sm text-green-600">In stock</span>
+              ) : (
+                <span className="text-sm text-red-500">Out of stock</span>
+              )}
             </div>
 
             <div className="border-t border-b py-4 space-y-2">
@@ -68,27 +115,49 @@ function SinglePageProduct() {
                 <span className="text-2xl font-bold">
                   ₹{product.discountedPrice}
                 </span>
-                <span className="text-gray-500 line-through">
-                  MRP ₹{product.originalPrice}
-                </span>
-                <span className="text-orange-500">
-                  ({product.discount}% OFF)
-                </span>
+                {discountPercent > 0 && (
+                  <>
+                    <span className="text-gray-500 line-through">
+                      MRP ₹{product.originalPrice}
+                    </span>
+                    <span className="text-orange-500">
+                      ({discountPercent}% OFF)
+                    </span>
+                  </>
+                )}
               </div>
               <p className="text-green-600 text-sm">inclusive of all taxes</p>
             </div>
 
-            {/* Size Selection */}
+            {/* Description */}
+            <div>
+              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                Product Details
+              </h3>
+              <p className="text-gray-700">{product.description}</p>
+            </div>
 
             {/* Action Buttons */}
             <div className="flex gap-4">
-              <button className="flex-1 bg-pink-500 text-white py-4 rounded font-semibold flex items-center justify-center gap-2">
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors duration-200"
+              >
                 <ShoppingBag className="w-5 h-5" />
                 ADD TO CART
               </button>
-              <button className="flex-1 border border-gray-300 py-4 rounded font-semibold flex items-center justify-center gap-2">
-                <Heart className="w-5 h-5" />
-                WISHLIST
+              <button
+                onClick={toggleWishlist}
+                className={`flex-1 border py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors duration-200 ${
+                  isWishlisted
+                    ? 'border-red-300 bg-red-50 text-red-500'
+                    : 'border-gray-300 text-gray-700 hover:border-red-300 hover:text-red-500'
+                }`}
+              >
+                <Heart
+                  className={`w-5 h-5 ${isWishlisted ? 'fill-red-500' : ''}`}
+                />
+                {isWishlisted ? 'WISHLISTED' : 'WISHLIST'}
               </button>
             </div>
 
