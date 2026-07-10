@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { ShoppingBag } from 'lucide-react';
 import { setUserEmail } from '../../Redux/User/UserActions';
 import { setEmail } from '../../Redux/User/UsersSlice';
 function LoginPage() {
@@ -34,90 +35,86 @@ function LoginPage() {
     navigate('/');
   };
 
+  const inputClass =
+    'mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600';
+
   return (
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          class="mx-auto h-10 w-auto"
-          src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
-        />
-        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Login in to your account
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center px-6 py-12">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
+        <ShoppingBag className="w-9 h-9 text-blue-600 mx-auto" />
+        <h2 className="mt-4 text-2xl font-bold tracking-tight text-gray-900">
+          Log in to your account
         </h2>
       </div>
 
-      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" onSubmit={handleClickLogin}>
-          <div>
-            <label
-              for="email"
-              class="block text-sm/6 font-medium text-gray-900"
-            >
-              Email address
-            </label>
-            <div class="mt-2">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+          <form className="space-y-5" onSubmit={handleClickLogin}>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email address
+              </label>
               <input
                 type="email"
                 name="email"
                 id="email"
-                autocomplete="email"
+                autoComplete="email"
                 required
                 value={credentials.email}
                 onChange={handleChange}
-                class=" text-black block w-full rounded-md bg-white px-3 py-1.5 text-base outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                className={inputClass}
               />
             </div>
-          </div>
 
-          <div>
-            <div class="flex items-center justify-between">
-              <label
-                for="password"
-                class="block text-sm/6 font-medium text-gray-900"
-              >
-                Password
-              </label>
-              <div class="text-sm">
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
                 <a
                   href="#"
-                  class="font-semibold text-indigo-600 hover:text-indigo-500"
+                  className="text-sm font-medium text-blue-600 hover:text-blue-700"
                 >
                   Forgot password?
                 </a>
               </div>
-            </div>
-            <div class="mt-2">
               <input
                 type="password"
                 name="password"
                 id="password"
-                autocomplete="current-password"
+                autoComplete="current-password"
                 required
                 onChange={handleChange}
-                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                className={inputClass}
               />
             </div>
-          </div>
 
-          <div>
             <button
               type="submit"
-              class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-md transition-colors"
             >
               Sign in
             </button>
-          </div>
-          <p className="text-center">
-            Don't have an account ? <Link to={'/signup'}>Sign up</Link>
-          </p>
-        </form>
+            <p className="text-center text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link
+                to={'/signup'}
+                className="text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Sign up
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );
 }
 
 export default LoginPage;
-
-// 1. naming for the folder and variable should be sesible and unique
-// 2. Name of the fucntiona component should follow the name and page written it.

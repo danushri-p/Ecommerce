@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import ValidationFormObject from '../../validation'; // Assuming you have a validation object
-
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import ValidationFormObject from '../../validation';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingBag } from 'lucide-react';
 
 function SignupForm() {
   const [data, setData] = useState({
@@ -11,142 +12,163 @@ function SignupForm() {
     file: '',
   });
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
+    const { name, value, files } = e.target;
+    if (name === 'file') {
+      setData({
+        ...data,
+        [name]: files[0],
+      });
+    } else {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload on form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
 
-    const NameV = ValidationFormObject.validteName(data.name);
-    const EmailV = ValidationFormObject.validteEmail(data.email);
-    const PassV = ValidationFormObject.validtePass(data.password);
+    const NameV = ValidationFormObject.validateName(data.name);
+    const EmailV = ValidationFormObject.validateEmail(data.email);
+    const PassV = ValidationFormObject.validatePass(data.password);
 
-    if (typeof NameV === 'string' && NameV.length > 1) {
+    if (typeof NameV === 'string') {
       return setError(NameV);
     }
-    if (typeof EmailV === 'string' && EmailV.length > 2) {
+    if (typeof EmailV === 'string') {
       return setError(EmailV);
     }
-    if (typeof PassV === 'string' && PassV.length > 2) {
+    if (typeof PassV === 'string') {
       return setError(PassV);
     }
 
-    // After validation success, you can proceed with the axios request (or any other submission logic)
-    // axios.post(...);
+    const formDataBody = new FormData();
+    formDataBody.append('name', data.name);
+    formDataBody.append('email', data.email);
+    formDataBody.append('password', data.password);
+    formDataBody.append('file', data.file);
+
+    try {
+      await axios.post('http://localhost:8080/user/signup', formDataBody, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      navigate('/login');
+    } catch (er) {
+      setError(er.response?.data?.message || er.message);
+    }
   };
 
+  const inputClass =
+    'mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600';
+  const labelClass = 'block text-sm font-medium text-gray-700';
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg"
-      >
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Signup</h2>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center px-6 py-12">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
+        <ShoppingBag className="w-9 h-9 text-blue-600 mx-auto" />
+        <h2 className="mt-4 text-2xl font-bold tracking-tight text-gray-900">
+          Create your account
+        </h2>
+      </div>
 
-        {/* Name Field */}
-        <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={data.name}
-            onChange={handleChange}
-            placeholder="Enter your name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="name" className={labelClass}>
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={data.name}
+                onChange={handleChange}
+                placeholder="Enter your name"
+                className={inputClass}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className={labelClass}>
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={data.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                className={inputClass}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className={labelClass}>
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={data.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                className={inputClass}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="file" className={labelClass}>
+                Profile Picture
+              </label>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                accept=".jpg,.jpeg,.png"
+                onChange={handleChange}
+                className="mt-1 block w-full text-sm text-gray-700 file:mr-4 file:rounded-md file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white file:text-sm file:font-medium hover:file:bg-blue-700"
+                required
+              />
+            </div>
+
+            {error && (
+              <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+                {error}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-md transition-colors"
+            >
+              Sign up
+            </button>
+
+            <p className="text-center text-sm text-gray-600">
+              Already have an account?{' '}
+              <Link
+                to="/login"
+                className="text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Log in
+              </Link>
+            </p>
+          </form>
         </div>
-
-        {/* Email Field */}
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={data.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        {/* Password Field */}
-        <div className="mb-4">
-          <label
-            htmlFor="password"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={data.password}
-            onChange={handleChange}
-            placeholder="Enter your password"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        {/* File Upload Field */}
-        <div className="mb-6">
-          <label
-            htmlFor="file"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Upload File
-          </label>
-          <input
-            type="file"
-            id="file"
-            name="file"
-            accept=".jpg, .jpeg, .png"
-            onChange={handleChange}
-            className="w-full text-gray-700 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        {/* Error Message */}
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Signup
-        </button>
-
-        {/* Link to Login Page */}
-        <p className="text-center mt-4">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-500 hover:underline">
-            Log In
-          </Link>
-        </p>
-      </form>
+      </div>
     </div>
   );
 }

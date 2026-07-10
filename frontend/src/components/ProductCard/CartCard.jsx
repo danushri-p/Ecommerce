@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { X, ArrowDown, RotateCcw } from 'lucide-react';
+import { X, RotateCcw } from 'lucide-react';
 export default function CartCard({
   title,
   images,
@@ -13,61 +13,84 @@ export default function CartCard({
   orderStatus,
   handleCancel,
 }) {
+  const discountPercent =
+    originalPrice > 0
+      ? Math.round(((originalPrice - discountedPrice) / originalPrice) * 100)
+      : 0;
+
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-4">
+    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4">
       {orderStatus && (
-        <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm w-[18%] text-center mb-5">
+        <div className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
           {orderStatus}
         </div>
       )}
       <div className="flex gap-6">
         {/* Product Image */}
-
-        <div className="relative w-64">
+        <div className="relative w-32 sm:w-48 shrink-0">
           <Link to={`/product-details/${id}`}>
-            <img
-              src={
-                typeof images == 'string'
-                  ? images
-                  : images?.[0] || 'Product Image missing'
-              }
-              alt="Product Image"
-              className="rounded-lg object-cover"
-            />
+            <div className="aspect-square bg-gray-50 rounded-lg overflow-hidden">
+              <img
+                src={
+                  typeof images == 'string'
+                    ? images
+                    : images?.[0] || 'Product Image missing'
+                }
+                alt={title || 'Product Image'}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </Link>
         </div>
 
         {/* Product Details */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <div className="flex justify-between items-start">
-            <div>
-              <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
-              <p className="text-lg text-gray-600">{description}</p>
-              <p className="text-gray-500 mt-1">Sold by: {createdBy}</p>
+            <div className="min-w-0">
+              <h2 className="text-lg font-semibold text-gray-900 truncate">
+                {title}
+              </h2>
+              <p className="text-sm text-gray-500 mt-0.5 line-clamp-2">
+                {description}
+              </p>
+              {createdBy && (
+                <p className="text-xs text-gray-400 mt-1">
+                  Sold by: {createdBy}
+                </p>
+              )}
             </div>
 
-            <button
-              className="text-gray-500 hover:text-gray-700"
-              onClick={orderStatus ? () => handleCancel(id) : () => {}}
-            >
-              <X className="w-6 h-6" />
-            </button>
+            {orderStatus && (
+              <button
+                className="text-gray-400 hover:text-gray-600 shrink-0"
+                onClick={() => handleCancel(id)}
+                aria-label="Cancel order"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
           </div>
 
-          {/* Size and Quantity Selectors */}
-
           {/* Price Information */}
-          <div className="mt-6 flex items-center gap-3">
-            <span className="text-2xl font-bold">₹{originalPrice}</span>
-            <span className="text-gray-500 line-through">
+          <div className="mt-4 flex items-center gap-3">
+            <span className="text-xl font-bold text-gray-900">
               ₹{discountedPrice}
             </span>
-            <span className="text-red-500">{discountedPrice}% OFF</span>
+            {discountPercent > 0 && (
+              <>
+                <span className="text-gray-400 line-through text-sm">
+                  ₹{originalPrice}
+                </span>
+                <span className="text-red-500 text-sm font-medium">
+                  {discountPercent}% OFF
+                </span>
+              </>
+            )}
           </div>
 
           {/* Return Policy */}
-          <div className="mt-4 flex items-center gap-2 text-gray-600">
-            <RotateCcw className="w-5 h-5" />
+          <div className="mt-3 flex items-center gap-2 text-gray-500 text-sm">
+            <RotateCcw className="w-4 h-4" />
             <span>14 days return available</span>
           </div>
         </div>
