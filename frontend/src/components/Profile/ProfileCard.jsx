@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Card = ({ children, className = '' }) => (
   <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
@@ -17,11 +18,12 @@ const InfoSection = ({ icon, label, value }) => (
     <IconWrapper>{icon}</IconWrapper>
     <div>
       <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-gray-900">{value}</p>
+      <div className="text-gray-900">{value}</div>
     </div>
   </div>
 );
 export function ProfileCard() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   const getUserData = async () => {
     const token = localStorage.getItem('token');
@@ -153,29 +155,20 @@ export function ProfileCard() {
             label="Addresses"
             value={
               userData?.address?.length > 0 ? (
-                <ul className="list-disc list-inside">
-                  {userData.address.map((SingleAddy, index) => (
-                    <div key={index}>
+                <div className="space-y-3">
+                  {userData.address.map((SingleAddy) => (
+                    <div key={SingleAddy._id} className="border-b pb-2">
                       <button onClick={() => handleDeleteAddy(SingleAddy._id)}>
                         Delete 👇🏻
                       </button>
-                      <li key={SingleAddy._id}>City: {SingleAddy.city}</li>
-                      <li key={SingleAddy._id}>
-                        Country: {SingleAddy.country}
-                      </li>
-                      <li key={SingleAddy._id}>
-                        Address 1: {SingleAddy.address1}
-                      </li>
-                      <li key={SingleAddy._id}>
-                        Address 2: {SingleAddy.address2}
-                      </li>
-                      <li key={SingleAddy._id}>
-                        Pin Code: {SingleAddy.zipCode}
-                      </li>
-                      <br />
+                      <p>City: {SingleAddy.city}</p>
+                      <p>Country: {SingleAddy.country}</p>
+                      <p>Address 1: {SingleAddy.address1}</p>
+                      <p>Address 2: {SingleAddy.address2}</p>
+                      <p>Pin Code: {SingleAddy.zipCode}</p>
                     </div>
                   ))}
-                </ul>
+                </div>
               ) : (
                 <span className="text-gray-400 italic">
                   No addresses Founded
@@ -184,9 +177,12 @@ export function ProfileCard() {
             }
           />
         </div>
-        {/* Edit Button */}
-        <button className="mt-8 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-          Edit Profile
+        {/* Add Address Button */}
+        <button
+          onClick={() => navigate('/add-address')}
+          className="mt-8 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Add Address
         </button>
       </Card>
     </div>

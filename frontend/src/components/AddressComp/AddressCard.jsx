@@ -13,19 +13,24 @@ const AddressCard = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {  
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const addressData = {
       city,
       country,
-      add1,  
-      add2,  
+      address1: add1,
+      address2: add2,
       zipCode,
       addressType,
-      state,  
+      state,
     };
 
     console.log(addressData);
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return alert('Token missing, please login again');
+    }
 
     try {
       const response = await axios.post(

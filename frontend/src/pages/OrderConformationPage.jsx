@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import CartCard from '../component/ProductCard/CartCard';
+import CartCard from '../components/ProductCard/CartCard';
 import { useNavigate } from 'react-router-dom';
 import { handlePay } from '../Utils/Razorpay';
 export default function OrderConfirmation() {
@@ -13,7 +13,6 @@ export default function OrderConfirmation() {
   // totoal
   // address
   // cart data
-  const data = useSelector((state) => state.user);
   useEffect(() => {
     const getCartData = async () => {
       const token = localStorage.getItem('token');
@@ -67,7 +66,7 @@ export default function OrderConfirmation() {
           <p className="mt-5">Order Total: {total}</p>
           <div
             className="p-4 bg-white w-1/2"
-            onClick={() => handleClickAddress(userAddress._id)}
+            onClick={() => navigate('/select-address')}
           >
             <div style={{ marginBottom: '8px' }}>
               <h3 className="text-base font-medium text-gray-800 capitalize mb-2">

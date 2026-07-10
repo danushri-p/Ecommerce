@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CartCard from '../component/ProductCard/CartCard';
+import CartCard from '../components/ProductCard/CartCard';
 import { Link } from 'react-router-dom';
 function CardPage() {
   const [UsersCartData, setUsersCartData] = useState([]);
-  const data = useSelector((state) => state.user);
   useEffect(() => {
     const getCartData = async () => {
       const token = localStorage.getItem('token');
@@ -34,7 +33,10 @@ function CardPage() {
               <div key={index}>
                 <CartCard
                   title={singleCartObject.productId.title}
-                  images={singleCartObject.productId.images[0]}
+                  images={
+                    singleCartObject.productId.images[0] ||
+                    'Product Image missing'
+                  }
                   //   Index={index}
                   description={singleCartObject.productId.description}
                   originalPrice={singleCartObject.productId.originalPrice}

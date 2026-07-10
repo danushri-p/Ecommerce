@@ -26,7 +26,11 @@ export default function CartCard({
         <div className="relative w-64">
           <Link to={`/product-details/${id}`}>
             <img
-              src={typeof images == 'string' ? images : images[0]}
+              src={
+                typeof images == 'string'
+                  ? images
+                  : images?.[0] || 'Product Image missing'
+              }
               alt="Product Image"
               className="rounded-lg object-cover"
             />

@@ -19,9 +19,9 @@ function Card({
         `http://localhost:8080/cart/add-to-cart?token=${token}`,
         { productId: id, quantity: 1 }
       );
-      console.log('Product Added To Cart Successfully...');
+      alert('Product Added To Cart Successfully...');
     } catch (er) {
-      alert(er.message);
+      alert(er.response?.data?.message || er.message);
       console.log(er.message);
     }
   };
