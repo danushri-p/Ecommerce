@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import AddressList from '../component/AllAddress/Addresses';
 
 export default function SelectAddres() {
   const [AllAddresses, setAllAddresses] = useState([]);
+  const data = useSelector((state) => state.user);
   useEffect(() => {
     //api call to get addresses
     const fetchAddress = async () => {
@@ -22,15 +22,7 @@ export default function SelectAddres() {
   }, []);
   return (
     <div>
-      <div className="flex justify-end p-4">
-        <Link
-          to="/add-address"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-        >
-          Add New Address
-        </Link>
-      </div>
-      <AddressList addresses={AllAddresses} />
+      <AddressList addresses={AllAddresses} />;
     </div>
   );
 }
