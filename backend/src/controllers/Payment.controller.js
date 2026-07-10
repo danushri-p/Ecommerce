@@ -1,5 +1,5 @@
 const Razorpay = require('razorpay');
-const PaymentModel = require('./Payment.model');
+const PaymentModel = require('../models/Payment.model');
 const { default: mongoose } = require('mongoose');
 if (process.env.NODE_ENV !== 'PRODUCTION') {
   require('dotenv').config({

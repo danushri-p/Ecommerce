@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+// {
+//   user: ObjectId();
+//   orderItems: [_id, _id];
+//   shippingAddress: {
+//   }
+//   totalAmount: 100;
+//   orderStatus: 'Processing';
+// }
 
 const orderSchema = new mongoose.Schema(
   {

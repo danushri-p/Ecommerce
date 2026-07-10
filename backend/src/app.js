@@ -3,8 +3,8 @@ const cors = require('cors');
 const userRouter = require('./routes/user.route.js');
 const productRouter = require('./routes/product.route.js');
 const cartRouter = require('./routes/cart.route.js');
-const OrderRouter = require('./routes/Order.route.js');
-const PaymentRouter = require('./Payment.route.js');
+const OrderRouter = require('./routes/order.route.js');
+const PaymentRouter = require('./routes/Payment.route.js');
 if (process.env.NODE_ENV !== 'PRODUCTION') {
   require('dotenv').config({
     path: './src/config/.env',

@@ -43,8 +43,8 @@ async function CreateUSer(req, res) {
   };
   const token = generateToken(data);
   await transporter.sendMail({
-    to: 'danushri.saranyaprakash@gmail.com',
-    from: 'danushri.prakashsaranya@gmail.com',
+    to: 'naayaankumar@gmail.com',
+    from: 'naayaankumar@gmail.com',
     subject: 'verification email from follow along project',
     text: 'Text',
     html: `<h1>Hello world   http://localhost:5173/activation/${token} </h1>`,
@@ -55,6 +55,9 @@ async function CreateUSer(req, res) {
   return res.send('User Created Successfully');
 }
 
+// 1. Check if there is any user already present with same creds
+// 2. if yes/true send respinse as user already exists
+// 3. if no /false cerate a user in database
 
 const generateToken = (data) => {
   // jwt
