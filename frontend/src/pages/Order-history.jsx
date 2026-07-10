@@ -36,6 +36,13 @@ function OrderHistory() {
     <div>
       ordered
       {OrderedData?.map((singleCartObject, index) => {
+        if (!singleCartObject.orderItems) {
+          return (
+            <div key={index} className="p-4 text-gray-500 italic">
+              This product is no longer available
+            </div>
+          );
+        }
         return (
           <div key={index}>
             <CartCard
