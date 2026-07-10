@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { ShoppingBag, ShoppingCart, User, Package, PlusCircle, Menu, X } from 'lucide-react';
+import { ShoppingBag, ShoppingCart, User, Package, PlusCircle, Heart, Menu, X } from 'lucide-react';
 
 const navItems = [
   { to: '/', label: 'Home', end: true },
   { to: '/', label: 'My Products', end: false },
   { to: '/product-entry-page', label: 'Add Products', icon: PlusCircle },
   { to: '/cart', label: 'Cart', icon: ShoppingCart },
+  { to: '/wishlist', label: 'Wishlist', icon: Heart },
   { to: '/profile', label: 'Profile', icon: User },
   { to: '/order-history', label: 'Orders', icon: Package },
 ];
