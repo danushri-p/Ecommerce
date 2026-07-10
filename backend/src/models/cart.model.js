@@ -1,3 +1,8 @@
+// {
+//     productId,
+//     userId,
+//     quantity,
+// }
 const mongoose = require('mongoose');
 const file = {
   productId: { type: mongoose.Types.ObjectId, ref: 'Product' },
@@ -7,5 +12,6 @@ const file = {
 const cartSchema = new mongoose.Schema(file);
 const CartModel = mongoose.model('Cart', cartSchema);
 
+// CartModel.find().populate(['productId', 'userId']);
 
 module.exports = CartModel;

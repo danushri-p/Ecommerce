@@ -12,4 +12,4 @@ router.post('/confirm-order', verifyUser, CreateOrderController);
 
 router.patch('/cancel-order', verifyUser, CancelOrder);
 
-module.exports = router;  
+module.exports = router;

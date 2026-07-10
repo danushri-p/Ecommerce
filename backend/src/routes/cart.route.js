@@ -11,3 +11,5 @@ router.post('/add-to-cart', verifyUser, AddToCartController);
 router.get('/get-user-cart-data', verifyUser, GetProductsForUser);
 
 module.exports = router;
+
+//route , model and controller
