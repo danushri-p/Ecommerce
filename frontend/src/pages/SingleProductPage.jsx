@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Heart, ShoppingBag, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ImageModal from '../component/ImageModal/ImageModal';
+import ImageModal from '../components/ImageModal/ImageModal';
 
 function SinglePageProduct() {
   const { id } = useParams();

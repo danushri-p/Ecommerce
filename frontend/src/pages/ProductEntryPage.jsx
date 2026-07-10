@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Upload } from 'lucide-react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function ProductEntryPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -11,7 +13,6 @@ function ProductEntryPage() {
     quantity: 0,
     category: '',
   });
-  const data = useSelector((state) => state.user);
   const [errorInput, setInputError] = useState('');
   const [Images, setImages] = useState([]);
 
@@ -87,10 +88,12 @@ function ProductEntryPage() {
       )
       .then((res) => {
         console.log(res);
+        navigate('/');
         return res;
       })
       .catch((er) => {
         console.log('error', er);
+        setInputError(er.response?.data?.message || er.message);
         return er;
       });
 
@@ -173,13 +176,16 @@ function ProductEntryPage() {
         <div>
           <label htmlFor="">Enter Category</label>
           <br />
-          <input
-            type="text"
+          <select
             onChange={handleChange}
             value={formData.category}
             name="category"
-            placeholder="Enter the category..."
-          />
+          >
+            <option value="">Select category</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="kids">Kids</option>
+          </select>
         </div>
         <div>
           <label htmlFor="">Enter Rating of product</label>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Card = ({ children, className = '' }) => (
   <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
@@ -22,6 +23,7 @@ const InfoSection = ({ icon, label, value }) => (
   </div>
 );
 export function ProfileCard() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   const getUserData = async () => {
     const token = localStorage.getItem('token');
@@ -184,9 +186,12 @@ export function ProfileCard() {
             }
           />
         </div>
-        {/* Edit Button */}
-        <button className="mt-8 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-          Edit Profile
+        {/* Add Address Button */}
+        <button
+          onClick={() => navigate('/add-address')}
+          className="mt-8 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Add Address
         </button>
       </Card>
     </div>
