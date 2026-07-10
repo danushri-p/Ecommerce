@@ -18,7 +18,7 @@ const InfoSection = ({ icon, label, value }) => (
     <IconWrapper>{icon}</IconWrapper>
     <div>
       <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-gray-900">{value}</p>
+      <div className="text-gray-900">{value}</div>
     </div>
   </div>
 );
@@ -155,29 +155,20 @@ export function ProfileCard() {
             label="Addresses"
             value={
               userData?.address?.length > 0 ? (
-                <ul className="list-disc list-inside">
-                  {userData.address.map((SingleAddy, index) => (
-                    <div key={index}>
+                <div className="space-y-3">
+                  {userData.address.map((SingleAddy) => (
+                    <div key={SingleAddy._id} className="border-b pb-2">
                       <button onClick={() => handleDeleteAddy(SingleAddy._id)}>
                         Delete 👇🏻
                       </button>
-                      <li key={SingleAddy._id}>City: {SingleAddy.city}</li>
-                      <li key={SingleAddy._id}>
-                        Country: {SingleAddy.country}
-                      </li>
-                      <li key={SingleAddy._id}>
-                        Address 1: {SingleAddy.address1}
-                      </li>
-                      <li key={SingleAddy._id}>
-                        Address 2: {SingleAddy.address2}
-                      </li>
-                      <li key={SingleAddy._id}>
-                        Pin Code: {SingleAddy.zipCode}
-                      </li>
-                      <br />
+                      <p>City: {SingleAddy.city}</p>
+                      <p>Country: {SingleAddy.country}</p>
+                      <p>Address 1: {SingleAddy.address1}</p>
+                      <p>Address 2: {SingleAddy.address2}</p>
+                      <p>Pin Code: {SingleAddy.zipCode}</p>
                     </div>
                   ))}
-                </ul>
+                </div>
               ) : (
                 <span className="text-gray-400 italic">
                   No addresses Founded

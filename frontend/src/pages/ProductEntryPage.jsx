@@ -107,103 +107,123 @@ function ProductEntryPage() {
       }
     }
   };
+  const inputClass =
+    'mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600';
+  const labelClass = 'block text-sm font-medium text-gray-700';
+
   return (
-    <div
-      className="flex justify-center items-center border border-black"
-      style={{ height: '100vh' }}
-    >
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="">Enter Title</label>
-          <br />
-          <input
-            type="text"
-            onChange={handleChange}
-            value={formData.title}
-            name="title"
-            placeholder="Enter Product title"
-          />
-        </div>
-        <div>
-          <label htmlFor="">Enter Description</label>
-          <br />
-          <input
-            type="text"
-            name="description"
-            onChange={handleChange}
-            value={formData.description}
-            placeholder="Enter Description"
-          />
-        </div>
-        <div>
-          <label htmlFor="">Discounted Price</label>
-          <br />
-          <input
-            type="number"
-            name="discountedPrice"
-            onChange={handleChange}
-            value={formData.discountedPrice}
-            placeholder="discounted-price.."
-          />
-        </div>
-        <div>
-          <label htmlFor="">Original Price</label>
-          <br />
-          <input
-            type="number"
-            onChange={handleChange}
-            name="originalPrice"
-            value={formData.originalPrice}
-            placeholder="original price.."
-          />
-        </div>
-        <div>
-          <label htmlFor="">Stock Quantity</label>
-          <br />
-          <input
-            type="number"
-            onChange={handleChange}
-            value={formData.quantity}
-            name="quantity"
-            placeholder="Enter the Stock Quantity.."
-          />
-        </div>
-        <div>
-          <label htmlFor="">Upload Product Images</label>
-          <br />
-          <input type="file" multiple onChange={handleImageUpload} />
-        </div>
-        <div>
-          <label htmlFor="">Enter Category</label>
-          <br />
-          <select
-            onChange={handleChange}
-            value={formData.category}
-            name="category"
+    <div className="min-h-screen bg-gray-50 flex justify-center items-start py-12 px-4">
+      <div className="w-full max-w-lg bg-white rounded-xl shadow-lg p-8">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">
+          Add a New Product
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className={labelClass}>Title</label>
+            <input
+              type="text"
+              onChange={handleChange}
+              value={formData.title}
+              name="title"
+              placeholder="Enter product title"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Description</label>
+            <input
+              type="text"
+              name="description"
+              onChange={handleChange}
+              value={formData.description}
+              placeholder="Enter description"
+              className={inputClass}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Discounted Price</label>
+              <input
+                type="number"
+                name="discountedPrice"
+                onChange={handleChange}
+                value={formData.discountedPrice}
+                placeholder="Discounted price"
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Original Price</label>
+              <input
+                type="number"
+                onChange={handleChange}
+                name="originalPrice"
+                value={formData.originalPrice}
+                placeholder="Original price"
+                className={inputClass}
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Stock Quantity</label>
+              <input
+                type="number"
+                onChange={handleChange}
+                value={formData.quantity}
+                name="quantity"
+                placeholder="Stock quantity"
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Rating</label>
+              <input
+                value={formData.rating}
+                name="rating"
+                type="number"
+                onChange={handleChange}
+                placeholder="Rating"
+                className={inputClass}
+              />
+            </div>
+          </div>
+          <div>
+            <label className={labelClass}>Category</label>
+            <select
+              onChange={handleChange}
+              value={formData.category}
+              name="category"
+              className={inputClass}
+            >
+              <option value="">Select category</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="kids">Kids</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelClass}>Product Images</label>
+            <input
+              type="file"
+              multiple
+              onChange={handleImageUpload}
+              className="mt-1 block w-full text-sm text-gray-700 file:mr-4 file:rounded-md file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white file:text-sm file:font-medium hover:file:bg-blue-700"
+            />
+          </div>
+          {errorInput && (
+            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+              {errorInput}
+            </p>
+          )}
+          <button
+            type="Submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-md transition-colors"
           >
-            <option value="">Select category</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="kids">Kids</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="">Enter Rating of product</label>
-          <br />
-          <input
-            value={formData.rating}
-            name="rating"
-            type="number"
-            onChange={handleChange}
-            placeholder="Rating of the product"
-            className="border border-black "
-          />
-        </div>
-        {errorInput && <p>{errorInput}</p>}
-        <button type="Submit" className="bg-blue-400 text-white px-5 py-1">
-          Submit
-        </button>
-      </form>
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

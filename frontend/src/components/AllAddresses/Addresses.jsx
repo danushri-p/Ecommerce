@@ -12,9 +12,9 @@ const AddressList = ({ addresses }) => {
    );
  }
  const handleClickAddress = (addressId) => {
-  const SingleAddress = addresses[index];
-  localStorage.SetItem('Address',)
-   navigate('/order-confirmation');
+  const SingleAddress = addresses.find((addr) => addr._id === addressId);
+  localStorage.setItem('address', JSON.stringify(SingleAddress));
+  navigate('/order-confirmation');
  };
 
 
