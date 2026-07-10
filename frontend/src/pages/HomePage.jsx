@@ -36,7 +36,7 @@ function HomePage() {
       <div className="grid grid-cols-3">
         {data?.map((ele, index) => {
           return (
-            <div key={ele._id} style={{ margin: 'auto' }} className="border border-white">
+            <div style={{ margin: 'auto' }} className="border border-white">
               <Card
                 title={ele.title}
                 image={ele.images[0] ? ele.images[0] : 'Product Image missing'}
