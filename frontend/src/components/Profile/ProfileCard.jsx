@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Fingerprint,
   Mail,
@@ -12,6 +12,7 @@ import {
   Pencil,
   Check,
   X,
+  Heart,
 } from 'lucide-react';
 
 const Card = ({ children, className = '' }) => (
@@ -52,6 +53,7 @@ export function ProfileCard() {
   const [nameDraft, setNameDraft] = useState('');
   const [editingAddressId, setEditingAddressId] = useState(null);
   const [addressDraft, setAddressDraft] = useState({});
+  const [wishlistProducts, setWishlistProducts] = useState([]);
 
   const getUserData = async () => {
     const token = localStorage.getItem('token');
@@ -68,7 +70,28 @@ export function ProfileCard() {
   console.log(data);
   useEffect(() => {
     getUserData();
+    loadWishlist();
   }, []);
+
+  const loadWishlist = async () => {
+    const wishlistIds = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const results = await Promise.all(
+      wishlistIds.map((id) =>
+        axios
+          .get(`http://localhost:8080/product/get-single/${id}`)
+          .then((res) => res.data.data)
+          .catch(() => null)
+      )
+    );
+    setWishlistProducts(results.filter(Boolean));
+  };
+
+  const removeFromWishlist = (id) => {
+    const wishlistIds = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const updated = wishlistIds.filter((pid) => pid !== id);
+    localStorage.setItem('wishlist', JSON.stringify(updated));
+    setWishlistProducts((prev) => prev.filter((p) => p._id !== id));
+  };
 
   const handleDeleteAddy = async (id) => {
     const token = localStorage.getItem('token');
@@ -298,6 +321,62 @@ export function ProfileCard() {
           >
             Add Address
           </button>
+        </Card>
+
+        {/* Wishlist Section */}
+        <Card className="mt-6">
+          <div className="flex items-center gap-3 mb-5">
+            <IconWrapper>
+              <Heart className="w-5 h-5 text-blue-600" />
+            </IconWrapper>
+            <h2 className="text-lg font-semibold text-gray-900">
+              Your Wishlist
+            </h2>
+          </div>
+
+          {wishlistProducts.length > 0 ? (
+            <div className="space-y-3">
+              {wishlistProducts.map((product) => (
+                <div
+                  key={product._id}
+                  className="flex items-center gap-3 border border-gray-200 rounded-lg p-3"
+                >
+                  <Link
+                    to={`/product-details/${product._id}`}
+                    className="w-16 h-16 rounded-lg overflow-hidden bg-gray-50 shrink-0"
+                  >
+                    <img
+                      src={product.images?.[0]}
+                      alt={product.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </Link>
+                  <div className="flex-1 min-w-0">
+                    <Link
+                      to={`/product-details/${product._id}`}
+                      className="font-medium text-gray-900 hover:text-blue-600 truncate block"
+                    >
+                      {product.title}
+                    </Link>
+                    <p className="text-sm text-gray-500">
+                      ₹{product.discountedPrice}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => removeFromWishlist(product._id)}
+                    className="text-red-400 hover:text-red-600 shrink-0"
+                    aria-label="Remove from wishlist"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <span className="text-gray-400 italic">
+              No items in your wishlist yet
+            </span>
+          )}
         </Card>
       </div>
     </div>
