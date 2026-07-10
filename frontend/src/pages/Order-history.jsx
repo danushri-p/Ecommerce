@@ -4,7 +4,6 @@ import CartCard from '../component/ProductCard/CartCard';
 
 function OrderHistory() {
   const [OrderedData, SetOrderedData] = useState([]);
-  const data = useSelector((state) => state.user);
   const fetchedOrderedProducts = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -47,7 +46,7 @@ function OrderHistory() {
               discountedPrice={singleCartObject.orderItems.discountedPrice}
               id={singleCartObject._id}
               orderStatus={singleCartObject.orderStatus}
-              createdBy={'danu@p.com'}
+              createdBy={'nayan@k.com'}
               handleCancel={handleCancel}
             />
           </div>

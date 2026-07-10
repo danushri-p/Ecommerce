@@ -1,4 +1,3 @@
-
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './Pages/HomePage';
 import Signup from './Pages/Signup';
@@ -13,7 +12,7 @@ import Navbar from './component/Navbar/Navbar';
 import AddressCard from './component/AddressComp/AddressCard';
 import SelectAddres from './Pages/SelectAddresspage';
 import OrderConfirmation from './Pages/OrderConformationPage';
-import OrderHistory from './Order-history';
+import OrderHistory from './Pages/Order-history';
 
 function App() {
   return (
